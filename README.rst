@@ -1,13 +1,16 @@
+This code is not ready yet. Please use https://github.com/vi3k6i5/synonym-extractor till I finish this.
 
-synonym-extractor
+This code is successor to https://github.com/vi3k6i5/synonym-extractor.
+
+flashtext
 ==============
 
-Synonym Extractor is a python library that is loosely based on `Aho-Corasick algorithm
+Flash Text is a python library that is loosely based on `Aho-Corasick algorithm
 <https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm>`_.
 
-The idea is to extract words that we care about from a given sentence in one pass.
+The idea is that say we have a corpus of terms/keywords. We want to extract any of the term from the corpus present in a sentence by making on pass on the sentence.
 
-Basically say I have a vocabulary of 10K words and I want to get all the words from that set present in a sentence. A simple regex match will take a lot of time to loop over the 10K documents.
+Basically say I have a vocabulary of 10K words and I want to get all the words from that set present in a sentence. A simple regex match will take a lot of time to loop over the 10K words.
 
 Hence we use a simpler yet much faster algorithm to get the desired result.
 
