@@ -1,4 +1,6 @@
-This code is not ready yet. Please use https://github.com/vi3k6i5/synonym-extractor till I finish this.
+This code is not ready yet. 
+=============
+Please use https://github.com/vi3k6i5/synonym-extractor till I finish this.
 
 This code is successor to https://github.com/vi3k6i5/synonym-extractor.
 
