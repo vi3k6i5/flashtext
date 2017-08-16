@@ -1,93 +1,58 @@
-This code is not ready yet. 
-=============
-Please use https://github.com/vi3k6i5/synonym-extractor till I finish this.
 
-This code is successor to https://github.com/vi3k6i5/synonym-extractor.
+FlashText's documentation!
+=====================================
 
-flashtext
-==============
-
-Flash Text is a python library that is loosely based on `Aho-Corasick algorithm
-<https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm>`_.
-
-The idea is that say we have a corpus of terms/keywords. We want to extract any of the term from the corpus present in a sentence by making on pass on the sentence.
-
-Basically say I have a vocabulary of 10K words and I want to get all the words from that set present in a sentence. A simple regex match will take a lot of time to loop over the 10K words.
-
-Hence we use a simpler yet much faster algorithm to get the desired result.
 
 Installation
--------
+------------
 ::
 
-    pip install flashtext
+    $ pip install flashtext
 
 Usage
-------
-::
-    
-    # import module
-    from synonym.extractor import SynonymExtractor
+-----
+Simple example
+    >>> from flashtext.keyword import KeywordProcessor
+    >>> keyword_processor = KeywordProcessor()
+    >>> keyword_processor.add_keyword('Big Apple', 'New York')
+    >>> keyword_processor.add_keyword('Bay Area')
+    >>> keywords_found = keyword_processor.extract_keywords('I love Big Apple and Bay Area.')
+    >>> keywords_found
+    >>> ['New York', 'Bay Area']
 
-    # Create an object of SynonymExtractor
-    synonym_extractor = SynonymExtractor()
+Case Sensitive example
+    >>> from flashtext.keyword import KeywordProcessor
+    >>> keyword_processor = KeywordProcessor(case_sensitive=True)
+    >>> keyword_processor.add_keyword('Big Apple', 'New York')
+    >>> keyword_processor.add_keyword('Bay Area')
+    >>> keywords_found = keyword_processor.extract_keywords('I love big Apple and Bay Area.')
+    >>> keywords_found
+    >>> ['Bay Area']
 
-    # add synonyms
-    synonym_names = ['NY', 'new-york', 'SF']
-    clean_names = ['new york', 'new york', 'san francisco']
+No clean name for Keywords
+    >>> from flashtext.keyword import KeywordProcessor
+    >>> keyword_processor = KeywordProcessor()
+    >>> keyword_processor.add_keyword('Big Apple')
+    >>> keyword_processor.add_keyword('Bay Area')
+    >>> keywords_found = keyword_processor.extract_keywords('I love big Apple and Bay Area.')
+    >>> keywords_found
+    >>> ['Big Apple', 'Bay Area']
 
-    for synonym_name, clean_name in zip(synonym_names, clean_names):
-        synonym_extractor.add_to_synonym(synonym_name, clean_name)
-
-    synonyms_found = synonym_extractor.get_synonyms_from_sentence('I love SF and NY. new-york is the best.')
-
-    synonyms_found
-    >> ['san francisco', 'new york', 'new york']
+API doc
+-------
 
 
-Algorithm
+.. toctree::
+    :maxdepth: 2
+    :caption: KeywordProcessor
+
+    api
+
+Contribute
 ----------
 
-synonym-extractor is based on `Aho-Corasick algorithm
-<https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm>`_.
-
-Documentation
-----------
-
-Documentation can be found at `Read the Docs
-<http://synonym-extractor.readthedocs.org>`_.
-
-
-Why
-------
-
-::
-
-Say you have a corpus where similar words appear frequently.
-
-eg: Last weekened I was in NY.
-    I am traveling to new york next weekend.
-
-If you train a word2vec model on this or do any sort of NLP it will treat NY and new york as 2 different words. 
-
-Instead if you create a synonym dictionary like:
-
-eg: NY=>new york
-    new york=>new york
-
-Then you can extract NY and new york as the same text.
-
-To do the same with regex it will take a lot of time:
-
-============  ========== = =========  ============
-Docs count    # Synonyms : Regex      synonym-extractor
-============  ========== = =========  ============
-1.5 million   2K         : 16 hours   NA
-2.5 million   10K        : 15 days    15 mins
-============  ========== = =========  ============
-
-The idea for this library came from the following `StackOverflow question
-<https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster>`_.
+- Issue Tracker: https://github.com/vi3k6i5/flashtext/issues
+- Source Code: https://github.com/vi3k6i5/flashtext/
 
 
 License
