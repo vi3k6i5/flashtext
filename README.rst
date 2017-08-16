@@ -41,12 +41,8 @@ No clean name for Keywords
 API doc
 -------
 
-
-.. toctree::
-    :maxdepth: 2
-    :caption: KeywordProcessor
-
-    api
+Documentation can be found at `FlashText Read the Docs
+<http://flashtext.readthedocs.io/>`_.
 
 Contribute
 ----------
