@@ -7,8 +7,8 @@ class KeywordProcessor(object):
     Attributes:
         _keyword (str): Used as key to store keywords in trie dictionary.
             Defaults to '_keyword_'
-        _white_space_chars (:set:`str`): Values which will be used to identify if we have reached end of term.
-            Defaults to set(['.', '\t', '\n', '\a', ' '])
+        _white_space_chars (set(str)): Values which will be used to identify if we have reached end of term.
+            Defaults to set(['.', '\\\\t', '\\\\n', '\\\\a', ' '])
         keyword_trie_dict (dict): Trie dict built character by character, that is used for lookup
             Defaults to empty dictionary
         case_sensitive (boolean): if the search algorithm should be case sensitive or not.
@@ -17,25 +17,20 @@ class KeywordProcessor(object):
     Examples:
         >>> # import module
         >>> from flashtext.keyword import KeywordProcessor
-
         >>> # Create an object of KeywordProcessor
         >>> keyword_processor = KeywordProcessor()
-
         >>> # add keywords
         >>> keyword_names = ['NY', 'new-york', 'SF']
         >>> clean_names = ['new york', 'new york', 'san francisco']
-
         >>> for keyword_name, clean_name in zip(keyword_names, clean_names):
         >>>     keyword_processor.add_keyword(keyword_name, clean_name)
-
         >>> keywords_found = keyword_processor.extract_keywords('I love SF and NY. new-york is the best.')
-
         >>> keywords_found
         >>> ['san francisco', 'new york', 'new york']
 
     Note:
-        loosely based on https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm.
-        Idea came from this question https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster
+        * loosely based on `Aho-Corasick algorithm <https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm>`_.
+        * Idea came from this `Stack Overflow Question <https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster>`_.
     """
 
     def __init__(self, case_sensitive=False):
@@ -53,7 +48,7 @@ class KeywordProcessor(object):
         """To change set of characters that are used to identify end of keyword/term
 
         Args:
-            white_space_chars (:set:`str`):
+            white_space_chars (set(str)):
                 Set of characters that will be considered as whitespaces.
                 This will denote that the term has ended.
 
@@ -74,8 +69,10 @@ class KeywordProcessor(object):
 
         Examples:
             >>> keyword_processor.add_keyword('Big Apple', 'New York')
+            >>> # This case 'Big Apple' will return 'New York'
             >>> # OR
-            >>> keyword_processor.add_keyword('New York')
+            >>> keyword_processor.add_keyword('Big Apple')
+            >>> # This case 'Big Apple' will return 'Big Apple'
 
         """
 
@@ -99,16 +96,16 @@ class KeywordProcessor(object):
         Examples:
             keywords file format can be like:
 
-            Option 1:
-            java_2e=>java
-            java programing=>java
-            product management=>product management
-            product management techniques=>product management
+            >>> # Option 1: keywords.txt content
+            >>> # java_2e=>java
+            >>> # java programing=>java
+            >>> # product management=>product management
+            >>> # product management techniques=>product management
 
-            Option 2:
-            java
-            python
-            c++
+            >>> # Option 2: keywords.txt content
+            >>> # java
+            >>> # python
+            >>> # c++
 
             >>> keyword_processor.add_keyword_from_file('keywords.txt')
 
@@ -131,14 +128,14 @@ class KeywordProcessor(object):
         """To add keywords from a dictionary
 
         Args:
-            keyword_dict (dict):
-            {
-                "java": ["java_2e", "java programing"],
-                "product management": ["PM", "product manager"]
-            }
+            keyword_dict (dict): A dictionary with `str` key and (list `str`) as value
 
         Examples:
-            >>> keyword_processor.add_keywords_from_dict({"java": ["java_2e"]})
+            >>> keyword_dict = {
+                    "java": ["java_2e", "java programing"],
+                    "product management": ["PM", "product manager"]
+                }
+            >>> keyword_processor.add_keywords_from_dict(keyword_dict)
 
         Raises:
             AttributeError: If value for a key in `keyword_dict` is not a list.
@@ -155,7 +152,7 @@ class KeywordProcessor(object):
         """To add keywords from a list
 
         Args:
-            keyword_list (:list:`str`): List of keywords
+            keyword_list (list(str)): List of keywords
 
         Examples:
             >>> keyword_processor.add_keywords_from_list(["java", "python"]})
@@ -177,7 +174,16 @@ class KeywordProcessor(object):
             sentence (str): Line of text where we will search for keywords
 
         Returns:
-            keywords_extracted (:list:`str`): List of terms/keywords found in sentence that match our corpus
+            keywords_extracted (list(str)): List of terms/keywords found in sentence that match our corpus
+
+        Examples:
+            >>> from flashtext.keyword import KeywordProcessor
+            >>> keyword_processor = KeywordProcessor()
+            >>> keyword_processor.add_keyword('Big Apple', 'New York')
+            >>> keyword_processor.add_keyword('Bay Area')
+            >>> keywords_found = keyword_processor.extract_keywords('I love Big Apple and Bay Area.')
+            >>> keywords_found
+            >>> ['New York', 'Bay Area']
 
         """
         if not self.case_sensitive:

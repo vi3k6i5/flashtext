@@ -1,4 +1,5 @@
 from setuptools import setup, Command
+from sphinx.setup_command import BuildDoc
 import subprocess
 
 
@@ -15,9 +16,12 @@ class PyTest(Command):
         errno = subprocess.call(['py.test'])
         raise SystemExit(errno)
 
+name = 'flashtext'
+version = '1.0'
+
 setup(
-    name='flashtext',
-    version='1.0',
+    name=name,
+    version=version,
     url='http://github.com/vi3k6i5/flashtext',
     author='Vikash Singh',
     author_email='vikash.duliajan@gmail.com',
@@ -26,7 +30,7 @@ setup(
     packages=['flashtext'],
     install_requires=[],
     platforms='any',
-    cmdclass={'test': PyTest},
+    cmdclass={'test': PyTest, 'build_sphinx': BuildDoc},
     classifiers=[
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
@@ -37,5 +41,12 @@ setup(
         'Operating System :: OS Independent',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
-    ]
+    ],
+    command_options={
+        'build_sphinx': {
+            'project': ('setup.py', name),
+            'version': ('setup.py', version),
+            'release': ('setup.py', version)
+        }
+    }
 )
