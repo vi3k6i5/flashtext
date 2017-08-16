@@ -1,6 +1,10 @@
+=========
+FlashText
+=========
 
-FlashText's documentation!
-=====================================
+.. image:: https://readthedocs.org/projects/flashtext/badge/?version=latest
+   :target: http://flashtext.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
 
 
 Installation
