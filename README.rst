@@ -6,9 +6,10 @@ FlashText
    :target: http://flashtext.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
+.. image:: https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000
+   :target: https://github.com/vi3k6i5/flashtext/blob/master/LICENSE
+   :alt: license
 
-[![Documentation Status](https://readthedocs.org/projects/flashtext/badge/?version=latest)](http://flashtext.readthedocs.io/en/latest/?badge=latest)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/vi3k6i5/flashtext/blob/master/LICENSE)
 
 Installation
 ------------
