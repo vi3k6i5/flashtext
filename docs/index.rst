@@ -73,7 +73,7 @@ To do the same with regex it will take a lot of time:
 ============  ========== = =========  ============
 Docs count    # Keywords : Regex      flashtext
 ============  ========== = =========  ============
-1.5 million   2K         : 16 hours   NA
+1.5 million   2K         : 16 hours   Not measured
 2.5 million   10K        : 15 days    15 mins
 ============  ========== = =========  ============
 
