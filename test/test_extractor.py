@@ -3,7 +3,7 @@ import logging
 import unittest
 import json
 
-logger = logging.getLogger('flashtext')
+logger = logging.getLogger(__name__)
 
 
 class TestSynonymExtractor(unittest.TestCase):
@@ -21,9 +21,12 @@ class TestSynonymExtractor(unittest.TestCase):
         Extract keywords and check if they match the expected result for the test case.
 
         """
-        for test_case in self.test_cases:
+        for test_id, test_case in enumerate(self.test_cases):
             keyword_processor = KeywordProcessor()
             keyword_processor.add_keywords_from_dict(test_case['keyword_dict'])
             keywords_extracted = keyword_processor.extract_keywords(test_case['sentence'])
             self.assertEqual(keywords_extracted, test_case['keywords'],
-                             "keywords_extracted don't match the expected results")
+                             "keywords_extracted don't match the expected results for test case: {}".format(test_id))
+
+if __name__ == '__main__':
+    unittest.main()

@@ -213,13 +213,14 @@ class KeywordProcessor(object):
                         idy = idx + 1
                         while idy < sentence_len:
                             inner_char = sentence[idy]
+                            if inner_char in self._white_space_chars and self._keyword in current_dict_continued:
+                                # update longest sequence found
+                                longest_sequence_found = current_dict_continued[self._keyword]
+
                             if inner_char in current_dict_continued:
                                 current_dict_continued = current_dict_continued[inner_char]
                             else:
                                 break
-                            if self._keyword in current_dict_continued:
-                                # update longest sequence found
-                                longest_sequence_found = current_dict_continued[self._keyword]
                             idy += 1
                         else:
                             # end of sentence reached.

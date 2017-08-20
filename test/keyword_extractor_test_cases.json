@@ -425,5 +425,14 @@
         "explaination": "Ending with special character",
         "keywords": ["Python"],
         "keywords_case_sensitive": ["Python"]
+    },
+    {
+        "sentence": "i like python programing",
+        "keyword_dict": {
+            "Python": ["python prog"]
+        },
+        "explaination": "Negative test case",
+        "keywords": [],
+        "keywords_case_sensitive": []
     }
 ]
