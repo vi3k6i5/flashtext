@@ -21,7 +21,7 @@ Installation
 
 Usage
 -----
-Simple example
+Extract keywords
     >>> from flashtext.keyword import KeywordProcessor
     >>> keyword_processor = KeywordProcessor()
     >>> keyword_processor.add_keyword('Big Apple', 'New York')
