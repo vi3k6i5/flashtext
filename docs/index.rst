@@ -51,6 +51,7 @@ API doc
     :caption: KeywordProcessor
 
     api
+    keyword_processor
 
 Contribute
 ----------

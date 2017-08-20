@@ -221,6 +221,11 @@ class KeywordProcessor(object):
                                 # update longest sequence found
                                 longest_sequence_found = current_dict_continued[self._keyword]
                             idy += 1
+                        else:
+                            # end of sentence reached.
+                            if self._keyword in current_dict_continued:
+                                # update longest sequence found
+                                longest_sequence_found = current_dict_continued[self._keyword]
                         if longest_sequence_found != sequence_found:
                             idx = idy
                     current_dict = self.keyword_trie_dict

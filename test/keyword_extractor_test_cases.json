@@ -389,5 +389,41 @@
         "explaination": "",
         "keywords": ["Computer Game Development"],
         "keywords_case_sensitive": ["Computer Game Development"]
+    },
+    {
+        "sentence": "I like .net",
+        "keyword_dict": {
+            ".NET": [".net"]
+        },
+        "explaination": "keyword with special character",
+        "keywords": [".NET"],
+        "keywords_case_sensitive": [".NET"]
+    },
+    {
+        "sentence": "I like c++",
+        "keyword_dict": {
+            "Cpp": ["c++"]
+        },
+        "explaination": "keyword with special character",
+        "keywords": ["Cpp"],
+        "keywords_case_sensitive": ["Cpp"]
+    },
+    {
+        "sentence": "python.",
+        "keyword_dict": {
+            "Python": ["python."]
+        },
+        "explaination": "Ending with special character",
+        "keywords": ["Python"],
+        "keywords_case_sensitive": ["Python"]
+    },
+    {
+        "sentence": "python ",
+        "keyword_dict": {
+            "Python": ["python "]
+        },
+        "explaination": "Ending with special character",
+        "keywords": ["Python"],
+        "keywords_case_sensitive": ["Python"]
     }
 ]

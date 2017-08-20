@@ -102,3 +102,6 @@ ENV/
 .mypy_cache/
 
 how_to_test_setup_deploy.txt
+
+# pycharm
+.idea
