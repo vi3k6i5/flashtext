@@ -427,12 +427,24 @@
         "keywords_case_sensitive": ["Python"]
     },
     {
-        "sentence": "i like python programing",
+        "sentence": "i like python programming",
         "keyword_dict": {
             "Python": ["python prog"]
         },
         "explaination": "Negative test case",
         "keywords": [],
         "keywords_case_sensitive": []
+    },
+    {
+        "sentence": "distributed super distributed super computing institute java",
+        "keyword_dict": {
+            "Java": ["java"],
+            "Distributed Super Computing Institutes": ["distributed super computing institutes"],
+            "Institute": ["institute"],
+            "Distributed Super Computing": ["distributed super computing"]
+        },
+        "explaination": "Negative test case",
+        "keywords": ["Distributed Super Computing", "Institute", "Java"],
+        "keywords_case_sensitive": ["Distributed Super Computing", "Institute", "Java"]
     }
 ]

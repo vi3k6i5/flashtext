@@ -10,6 +10,8 @@ FlashText
    :target: https://github.com/vi3k6i5/flashtext/blob/master/LICENSE
    :alt: license
 
+This module can be used to replace keywords in sentences or extract keywords from sentences.
+
 
 Installation
 ------------
@@ -27,6 +29,12 @@ Simple example
     >>> keywords_found = keyword_processor.extract_keywords('I love Big Apple and Bay Area.')
     >>> keywords_found
     >>> ['New York', 'Bay Area']
+
+Replace keywords
+    >>> keyword_processor.add_keyword('New Delhi', 'NCR region')
+    >>> new_sentence = keyword_processor.replace_keywords('I love Big Apple and new delhi.')
+    >>> new_sentence
+    >>> 'I love New York and NCR region.'
 
 Case Sensitive example
     >>> from flashtext.keyword import KeywordProcessor
@@ -51,6 +59,26 @@ API doc
 
 Documentation can be found at `FlashText Read the Docs
 <http://flashtext.readthedocs.io/>`_.
+
+Why not Regex?
+--------------
+
+It's a custom algorithm based on `Aho-Corasick algorithm
+<https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm>`_ and `Trie Dictionary
+<https://en.wikipedia.org/wiki/Trie Dictionary>`_.
+
+
+To do the same with regex it will take a lot of time:
+
+============  ========== = =========  ============
+Docs count    # Keywords : Regex      flashtext
+============  ========== = =========  ============
+1.5 million   2K         : 16 hours   NA
+2.5 million   10K        : 15 days    15 mins
+============  ========== = =========  ============
+
+The idea for this library came from the following `StackOverflow question
+<https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster>`_.
 
 Contribute
 ----------

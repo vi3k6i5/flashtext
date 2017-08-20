@@ -19,6 +19,13 @@ Extract keywords
     >>> keywords_found
     >>> ['New York', 'Bay Area']
 
+Replace keywords
+~~~~~~~~~~~~~~~~
+    >>> keyword_processor.add_keyword('New Delhi', 'NCR region')
+    >>> new_sentence = keyword_processor.replace_keywords('I love Big Apple and new delhi.')
+    >>> new_sentence
+    >>> 'I love New York and NCR region.'
+
 Add keywords from File
 ~~~~~~~~~~~~~~~~~~~~~~
     >>> # Option 1: keywords.txt content
