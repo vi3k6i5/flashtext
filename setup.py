@@ -17,7 +17,7 @@ class PyTest(Command):
         raise SystemExit(errno)
 
 name = 'flashtext'
-version = '1.4'
+version = '1.5'
 
 setup(
     name=name,

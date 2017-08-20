@@ -121,7 +121,7 @@ class KeywordProcessor(object):
                     keyword, clean_name = line.split('=>')
                     self.add_keyword(keyword, clean_name.strip())
                 else:
-                    keyword = line
+                    keyword = line.strip()
                     self.add_keyword(keyword)
 
     def add_keywords_from_dict(self, keyword_dict):
@@ -329,6 +329,7 @@ class KeywordProcessor(object):
                             # end of sentence reached.
                             if self._keyword in current_dict_continued:
                                 # update longest sequence found
+                                current_white_space = ''
                                 longest_sequence_found = current_dict_continued[self._keyword]
                                 sequence_end_pos = idy
                         if longest_sequence_found != sequence_found:
