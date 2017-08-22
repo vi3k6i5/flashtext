@@ -33,11 +33,8 @@ class TestKeywordExtractor(unittest.TestCase):
                 for value in test_case['keyword_dict'][val]:
                     keyword_mapping[value] = val
             for key in sorted(keyword_mapping, key=len, reverse=True):
-                if any(special_char in key for special_char in ['.', '+']):
-                    replaced_sentence = replaced_sentence.replace(key, keyword_mapping[key])
-                else:
-                    lowercase = re.compile(r'\b' + re.escape(key) + r'\b')
-                    replaced_sentence = lowercase.sub(keyword_mapping[key], replaced_sentence)
+                lowercase = re.compile(r'(?<!\w){}(?!\w)'.format(re.escape(key)))
+                replaced_sentence = lowercase.sub(keyword_mapping[key], replaced_sentence)
 
             self.assertEqual(new_sentence, replaced_sentence,
                              "new_sentence don't match the expected results for test case: {}".format(test_id))
