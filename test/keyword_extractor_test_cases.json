@@ -123,7 +123,7 @@
     {
         "sentence": " r",
         "keyword_dict": {
-            "R": ["R"]
+            "R": ["r"]
         },
         "explaination": "Single character keyword in the sentence with space prefix.",
         "keywords": ["R"],
@@ -420,7 +420,7 @@
     {
         "sentence": "python ",
         "keyword_dict": {
-            "Python": ["python "]
+            "Python": ["python"]
         },
         "explaination": "Ending with special character",
         "keywords": ["Python"],

@@ -2,6 +2,7 @@ from flashtext.keyword import KeywordProcessor
 import logging
 import unittest
 import json
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -26,12 +27,20 @@ class TestKeywordExtractor(unittest.TestCase):
             keyword_replacer.add_keywords_from_dict(test_case['keyword_dict'])
             new_sentence = keyword_replacer.replace_keywords(test_case['sentence'])
 
-            keyword_extractor = KeywordProcessor(case_sensitive=True)
-            keyword_extractor.add_keywords_from_list(list(test_case['keyword_dict'].keys()))
-            keywords_extracted = keyword_extractor.extract_keywords(new_sentence)
+            replaced_sentence = test_case['sentence']
+            keyword_mapping = {}
+            for val in test_case['keyword_dict']:
+                for value in test_case['keyword_dict'][val]:
+                    keyword_mapping[value] = val
+            for key in sorted(keyword_mapping, key=len, reverse=True):
+                if any(special_char in key for special_char in ['.', '+']):
+                    replaced_sentence = replaced_sentence.replace(key, keyword_mapping[key])
+                else:
+                    lowercase = re.compile(r'\b' + re.escape(key) + r'\b')
+                    replaced_sentence = lowercase.sub(keyword_mapping[key], replaced_sentence)
 
-            self.assertEqual(keywords_extracted, test_case['keywords'],
-                             "keywords_extracted don't match the expected results for test case: {}".format(test_id))
+            self.assertEqual(new_sentence, replaced_sentence,
+                             "new_sentence don't match the expected results for test case: {}".format(test_id))
 
 if __name__ == '__main__':
     unittest.main()

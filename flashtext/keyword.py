@@ -340,6 +340,10 @@ class KeywordProcessor(object):
                         new_sentence += longest_sequence_found + current_white_space
                         current_word = ''
                         current_white_space = ''
+                    else:
+                        new_sentence += current_word
+                        current_word = ''
+                        current_white_space = ''
                 else:
                     # we reset current_dict
                     current_dict = self.keyword_trie_dict
