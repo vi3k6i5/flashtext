@@ -13,6 +13,7 @@ Installation
 
     $ pip install flashtext
 
+
 Usage
 -----
 Extract keywords
@@ -48,9 +49,9 @@ No clean name for Keywords
     >>> keywords_found
     >>> ['Big Apple', 'Bay Area']
 
+
 API doc
 -------
-
 
 .. toctree::
     :maxdepth: 2
@@ -58,6 +59,16 @@ API doc
 
     api
     keyword_processor
+
+
+Test
+----
+::
+
+    $ git clone https://github.com/vi3k6i5/flashtext
+    $ cd flashtext
+    $ pip install pytest
+    $ python setup.py test
 
 
 Why not Regex?
@@ -79,6 +90,7 @@ Docs count    # Keywords : Regex      flashtext
 
 The idea for this library came from the following `StackOverflow question
 <https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster>`_.
+
 
 Contribute
 ----------

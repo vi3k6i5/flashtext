@@ -8,7 +8,7 @@ class KeywordProcessor(object):
         _keyword (str): Used as key to store keywords in trie dictionary.
             Defaults to '_keyword_'
         _white_space_chars (set(str)): Values which will be used to identify if we have reached end of term.
-            Defaults to set(['.', '\\\\t', '\\\\n', '\\\\a', ' '])
+            Defaults to set(['.', '\\\\t', '\\\\n', '\\\\a', ' ', ','])
         keyword_trie_dict (dict): Trie dict built character by character, that is used for lookup
             Defaults to empty dictionary
         case_sensitive (boolean): if the search algorithm should be case sensitive or not.
@@ -40,7 +40,7 @@ class KeywordProcessor(object):
                 Defaults to False
         """
         self._keyword = '_keyword_'
-        self._white_space_chars = set(['.', '\t', '\n', '\a', ' '])
+        self._white_space_chars = set(['.', '\t', '\n', '\a', ' ', ','])
         self.keyword_trie_dict = dict()
         self.case_sensitive = case_sensitive
 
