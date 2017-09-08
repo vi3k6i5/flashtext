@@ -1,5 +1,4 @@
 from setuptools import setup, Command
-from sphinx.setup_command import BuildDoc
 import subprocess
 
 
@@ -17,7 +16,15 @@ class PyTest(Command):
         raise SystemExit(errno)
 
 name = 'flashtext'
-version = '1.7'
+version = '1.8'
+
+cmdclass = {'test': PyTest}
+
+try:
+    from sphinx.setup_command import BuildDoc
+    cmdclass['build_sphinx'] = BuildDoc
+except ImportError:
+    print('WARNING: sphinx not available, not building docs')
 
 setup(
     name=name,
@@ -30,7 +37,7 @@ setup(
     packages=['flashtext'],
     install_requires=[],
     platforms='any',
-    cmdclass={'test': PyTest, 'build_sphinx': BuildDoc},
+    cmdclass=cmdclass,
     classifiers=[
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
