@@ -81,6 +81,7 @@ It's a custom algorithm based on `Aho-Corasick algorithm
 
 .. image:: https://github.com/vi3k6i5/flashtext/raw/master/bechamark_1.png
    :target: https://twitter.com/RadimRehurek/status/904989624589803520
+   :width: 400px
    :alt: Benchmark
 
 To do the same with regex it will take a lot of time:
