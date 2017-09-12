@@ -44,10 +44,10 @@ class KeywordProcessor(object):
         self._white_space_chars = set(['.', '\t', '\n', '\a', ' ', ','])
         try:
             # python 2.x
-            self.non_word_boundries = set(string.digits + string.letters)
+            self.non_word_boundries = set(string.digits + string.letters + '_')
         except AttributeError:
             # python 3.x
-            self.non_word_boundries = set(string.digits + string.ascii_letters)
+            self.non_word_boundries = set(string.digits + string.ascii_letters + '_')
         self.keyword_trie_dict = dict()
         self.case_sensitive = case_sensitive
 
@@ -60,6 +60,16 @@ class KeywordProcessor(object):
 
         """
         self.non_word_boundries = non_word_boundries
+
+    def add_non_word_boundries(self, character):
+        """add a character that will be considered as part of word.
+
+        Args:
+            character (char):
+                Character that will be considered as part of word.
+
+        """
+        self.non_word_boundries.add(character)
 
     def add_keyword(self, keyword, clean_name=None):
         """To add one or more keywords to the dictionary
