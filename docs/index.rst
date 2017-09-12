@@ -78,6 +78,9 @@ It's a custom algorithm based on `Aho-Corasick algorithm
 <https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm>`_ and `Trie Dictionary
 <https://en.wikipedia.org/wiki/Trie Dictionary>`_.
 
+.. image:: https://github.com/vi3k6i5/flashtext/raw/master/bechamark_1.png
+   :target: https://twitter.com/RadimRehurek/status/904989624589803520
+   :alt: Benchmark
 
 To do the same with regex it will take a lot of time:
 
