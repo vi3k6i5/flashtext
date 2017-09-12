@@ -23,13 +23,13 @@ Extract keywords
     >>> keyword_processor.add_keyword('Bay Area')
     >>> keywords_found = keyword_processor.extract_keywords('I love Big Apple and Bay Area.')
     >>> keywords_found
-    >>> ['New York', 'Bay Area']
+    >>> # ['New York', 'Bay Area']
 
 Replace keywords
     >>> keyword_processor.add_keyword('New Delhi', 'NCR region')
     >>> new_sentence = keyword_processor.replace_keywords('I love Big Apple and new delhi.')
     >>> new_sentence
-    >>> 'I love New York and NCR region.'
+    >>> # 'I love New York and NCR region.'
 
 Case Sensitive example
     >>> from flashtext.keyword import KeywordProcessor
@@ -38,7 +38,7 @@ Case Sensitive example
     >>> keyword_processor.add_keyword('Bay Area')
     >>> keywords_found = keyword_processor.extract_keywords('I love big Apple and Bay Area.')
     >>> keywords_found
-    >>> ['Bay Area']
+    >>> # ['Bay Area']
 
 No clean name for Keywords
     >>> from flashtext.keyword import KeywordProcessor
@@ -47,7 +47,19 @@ No clean name for Keywords
     >>> keyword_processor.add_keyword('Bay Area')
     >>> keywords_found = keyword_processor.extract_keywords('I love big Apple and Bay Area.')
     >>> keywords_found
-    >>> ['Big Apple', 'Bay Area']
+    >>> # ['Big Apple', 'Bay Area']
+
+For detecting Word Boundary currently any character other than this `\\w` `[A-Za-z0-9_]` is considered a word boundary.
+
+To set or add characters as part of word characters
+    >>> from flashtext.keyword import KeywordProcessor
+    >>> keyword_processor = KeywordProcessor()
+    >>> keyword_processor.add_keyword('Big Apple')
+    >>> print(keyword_processor.extract_keywords('I love Big Apple/Bay Area.'))
+    >>> # ['Big Apple']
+    >>> keyword_processor.add_non_word_boundary('/')
+    >>> print(keyword_processor.extract_keywords('I love Big Apple/Bay Area.'))
+    >>> # []
 
 
 API doc
