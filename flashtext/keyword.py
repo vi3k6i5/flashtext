@@ -1,4 +1,5 @@
 import os
+import string
 
 
 class KeywordProcessor(object):
@@ -7,8 +8,8 @@ class KeywordProcessor(object):
     Attributes:
         _keyword (str): Used as key to store keywords in trie dictionary.
             Defaults to '_keyword_'
-        _white_space_chars (set(str)): Values which will be used to identify if we have reached end of term.
-            Defaults to set(['.', '\\\\t', '\\\\n', '\\\\a', ' ', ','])
+        non_word_boundries (set(str)): Characters that will determine if the word is continuing.
+            Defaults to set([A-Za-z0-9_])
         keyword_trie_dict (dict): Trie dict built character by character, that is used for lookup
             Defaults to empty dictionary
         case_sensitive (boolean): if the search algorithm should be case sensitive or not.
@@ -41,19 +42,24 @@ class KeywordProcessor(object):
         """
         self._keyword = '_keyword_'
         self._white_space_chars = set(['.', '\t', '\n', '\a', ' ', ','])
+        try:
+            # python 2.x
+            self.non_word_boundries = set(string.digits + string.letters)
+        except AttributeError:
+            # python 3.x
+            self.non_word_boundries = set(string.digits + string.ascii_letters)
         self.keyword_trie_dict = dict()
         self.case_sensitive = case_sensitive
 
-    def _set_white_space_chars(self, white_space_chars):
-        """To change set of characters that are used to identify end of keyword/term
+    def set_non_word_boundries(self, non_word_boundries):
+        """set of characters that will be considered as part of word.
 
         Args:
-            white_space_chars (set(str)):
-                Set of characters that will be considered as whitespaces.
-                This will denote that the term has ended.
+            non_word_boundries (set(str)):
+                Set of characters that will be considered as part of word.
 
         """
-        self._white_space_chars = white_space_chars
+        self.non_word_boundries = non_word_boundries
 
     def add_keyword(self, keyword, clean_name=None):
         """To add one or more keywords to the dictionary
@@ -186,17 +192,20 @@ class KeywordProcessor(object):
             >>> ['New York', 'Bay Area']
 
         """
+        keywords_extracted = []
+        if not sentence:
+            # if sentence is empty or none just return empty list
+            return keywords_extracted
         if not self.case_sensitive:
             sentence = sentence.lower()
-        keywords_extracted = []
         current_dict = self.keyword_trie_dict
         sequence_end_pos = 0
         idx = 0
         sentence_len = len(sentence)
         while idx < sentence_len:
             char = sentence[idx]
-            # when we reach whitespace
-            if char in self._white_space_chars:
+            # when we reach a character that might denote word end
+            if char not in self.non_word_boundries:
 
                 # if end is present in current_dict
                 if self._keyword in current_dict or char in current_dict:
@@ -215,7 +224,7 @@ class KeywordProcessor(object):
                         idy = idx + 1
                         while idy < sentence_len:
                             inner_char = sentence[idy]
-                            if inner_char in self._white_space_chars and self._keyword in current_dict_continued:
+                            if inner_char not in self.non_word_boundries and self._keyword in current_dict_continued:
                                 # update longest sequence found
                                 longest_sequence_found = current_dict_continued[self._keyword]
                                 sequence_end_pos = idy
@@ -249,7 +258,7 @@ class KeywordProcessor(object):
                 idy = idx + 1
                 while idy < sentence_len:
                     char = sentence[idy]
-                    if char in self._white_space_chars:
+                    if char not in self.non_word_boundries:
                         break
                     idy += 1
                 idx = idy
@@ -281,6 +290,9 @@ class KeywordProcessor(object):
             >>> 'I love New York and Bay Area.'
 
         """
+        if not sentence:
+            # if sentence is empty or none just return the same.
+            return sentence
         new_sentence = ''
         orig_sentence = sentence
         if not self.case_sensitive:
@@ -295,7 +307,7 @@ class KeywordProcessor(object):
             char = sentence[idx]
             current_word += orig_sentence[idx]
             # when we reach whitespace
-            if char in self._white_space_chars:
+            if char not in self.non_word_boundries:
                 current_white_space = char
                 # if end is present in current_dict
                 if self._keyword in current_dict or char in current_dict:
@@ -315,7 +327,7 @@ class KeywordProcessor(object):
                         while idy < sentence_len:
                             inner_char = sentence[idy]
                             current_word_continued += orig_sentence[idy]
-                            if inner_char in self._white_space_chars and self._keyword in current_dict_continued:
+                            if inner_char not in self.non_word_boundries and self._keyword in current_dict_continued:
                                 # update longest sequence found
                                 current_white_space = inner_char
                                 longest_sequence_found = current_dict_continued[self._keyword]
@@ -361,7 +373,7 @@ class KeywordProcessor(object):
                 while idy < sentence_len:
                     char = sentence[idy]
                     current_word += orig_sentence[idy]
-                    if char in self._white_space_chars:
+                    if char not in self.non_word_boundries:
                         break
                     idy += 1
                 idx = idy

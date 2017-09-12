@@ -446,5 +446,16 @@
         "explaination": "Negative test case",
         "keywords": ["Distributed Super Computing", "Institute", "Java"],
         "keywords_case_sensitive": ["Distributed Super Computing", "Institute", "Java"]
+    },
+    {
+        "sentence": "targets relative to targets of the IRE1/XBP1s and PERK arms of the UPR",
+        "keyword_dict": {
+            "IRE1": ["IRE1"],
+            "XBP1s": ["XBP1s"],
+            "UPR": ["upr"]
+        },
+        "explaination": "",
+        "keywords": ["IRE1", "XBP1s", "UPR"],
+        "keywords_case_sensitive": ["IRE1", "XBP1s"]
     }
 ]
