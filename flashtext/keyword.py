@@ -8,7 +8,7 @@ class KeywordProcessor(object):
     Attributes:
         _keyword (str): Used as key to store keywords in trie dictionary.
             Defaults to '_keyword_'
-        non_word_boundries (set(str)): Characters that will determine if the word is continuing.
+        non_word_boundaries (set(str)): Characters that will determine if the word is continuing.
             Defaults to set([A-Za-z0-9_])
         keyword_trie_dict (dict): Trie dict built character by character, that is used for lookup
             Defaults to empty dictionary
@@ -44,24 +44,24 @@ class KeywordProcessor(object):
         self._white_space_chars = set(['.', '\t', '\n', '\a', ' ', ','])
         try:
             # python 2.x
-            self.non_word_boundries = set(string.digits + string.letters + '_')
+            self.non_word_boundaries = set(string.digits + string.letters + '_')
         except AttributeError:
             # python 3.x
-            self.non_word_boundries = set(string.digits + string.ascii_letters + '_')
+            self.non_word_boundaries = set(string.digits + string.ascii_letters + '_')
         self.keyword_trie_dict = dict()
         self.case_sensitive = case_sensitive
 
-    def set_non_word_boundries(self, non_word_boundries):
+    def set_non_word_boundaries(self, non_word_boundaries):
         """set of characters that will be considered as part of word.
 
         Args:
-            non_word_boundries (set(str)):
+            non_word_boundaries (set(str)):
                 Set of characters that will be considered as part of word.
 
         """
-        self.non_word_boundries = non_word_boundries
+        self.non_word_boundaries = non_word_boundaries
 
-    def add_non_word_boundries(self, character):
+    def add_non_word_boundary(self, character):
         """add a character that will be considered as part of word.
 
         Args:
@@ -69,7 +69,7 @@ class KeywordProcessor(object):
                 Character that will be considered as part of word.
 
         """
-        self.non_word_boundries.add(character)
+        self.non_word_boundaries.add(character)
 
     def add_keyword(self, keyword, clean_name=None):
         """To add one or more keywords to the dictionary
@@ -215,7 +215,7 @@ class KeywordProcessor(object):
         while idx < sentence_len:
             char = sentence[idx]
             # when we reach a character that might denote word end
-            if char not in self.non_word_boundries:
+            if char not in self.non_word_boundaries:
 
                 # if end is present in current_dict
                 if self._keyword in current_dict or char in current_dict:
@@ -234,7 +234,7 @@ class KeywordProcessor(object):
                         idy = idx + 1
                         while idy < sentence_len:
                             inner_char = sentence[idy]
-                            if inner_char not in self.non_word_boundries and self._keyword in current_dict_continued:
+                            if inner_char not in self.non_word_boundaries and self._keyword in current_dict_continued:
                                 # update longest sequence found
                                 longest_sequence_found = current_dict_continued[self._keyword]
                                 sequence_end_pos = idy
@@ -268,7 +268,7 @@ class KeywordProcessor(object):
                 idy = idx + 1
                 while idy < sentence_len:
                     char = sentence[idy]
-                    if char not in self.non_word_boundries:
+                    if char not in self.non_word_boundaries:
                         break
                     idy += 1
                 idx = idy
@@ -317,7 +317,7 @@ class KeywordProcessor(object):
             char = sentence[idx]
             current_word += orig_sentence[idx]
             # when we reach whitespace
-            if char not in self.non_word_boundries:
+            if char not in self.non_word_boundaries:
                 current_white_space = char
                 # if end is present in current_dict
                 if self._keyword in current_dict or char in current_dict:
@@ -337,7 +337,7 @@ class KeywordProcessor(object):
                         while idy < sentence_len:
                             inner_char = sentence[idy]
                             current_word_continued += orig_sentence[idy]
-                            if inner_char not in self.non_word_boundries and self._keyword in current_dict_continued:
+                            if inner_char not in self.non_word_boundaries and self._keyword in current_dict_continued:
                                 # update longest sequence found
                                 current_white_space = inner_char
                                 longest_sequence_found = current_dict_continued[self._keyword]
@@ -383,7 +383,7 @@ class KeywordProcessor(object):
                 while idy < sentence_len:
                     char = sentence[idy]
                     current_word += orig_sentence[idy]
-                    if char not in self.non_word_boundries:
+                    if char not in self.non_word_boundaries:
                         break
                     idy += 1
                 idx = idy
