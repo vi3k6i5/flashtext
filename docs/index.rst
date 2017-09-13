@@ -3,8 +3,19 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+
 FlashText's documentation!
-=====================================
+==========================
+
+.. image:: https://readthedocs.org/projects/flashtext/badge/?version=latest
+   :target: http://flashtext.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
+.. image:: https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000
+   :target: https://github.com/vi3k6i5/flashtext/blob/master/LICENSE
+   :alt: license
+
+This module can be used to replace keywords in sentences or extract keywords from sentences.
 
 
 Installation
@@ -81,6 +92,17 @@ Test
     $ cd flashtext
     $ pip install pytest
     $ python setup.py test
+
+
+Build Docs
+----
+::
+
+    $ git clone https://github.com/vi3k6i5/flashtext
+    $ cd flashtext/docs
+    $ pip install sphinx
+    $ make html
+    $ # open _build/html/index.html in browser to view it locally
 
 
 Why not Regex?

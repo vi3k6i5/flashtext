@@ -19,6 +19,7 @@ Installation
 
     $ pip install flashtext
 
+
 Usage
 -----
 Extract keywords
@@ -66,6 +67,7 @@ To set or add characters as part of word characters
     >>> print(keyword_processor.extract_keywords('I love Big Apple/Bay Area.'))
     >>> # []
 
+
 API doc
 -------
 
@@ -81,6 +83,17 @@ Test
     $ cd flashtext
     $ pip install pytest
     $ python setup.py test
+
+
+Build Docs
+----
+::
+
+    $ git clone https://github.com/vi3k6i5/flashtext
+    $ cd flashtext/docs
+    $ pip install sphinx
+    $ make html
+    $ # open _build/html/index.html in browser to view it locally
 
 
 Why not Regex?
