@@ -2,6 +2,10 @@
 FlashText
 =========
 
+.. image:: https://api.travis-ci.org/vi3k6i5/flashtext.svg?branch=master
+   :target: https://travis-ci.org/vi3k6i5/flashtext
+   :alt: Build Status
+
 .. image:: https://readthedocs.org/projects/flashtext/badge/?version=latest
    :target: http://flashtext.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
