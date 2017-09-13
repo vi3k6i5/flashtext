@@ -7,7 +7,7 @@ import re
 logger = logging.getLogger(__name__)
 
 
-class TestKeywordExtractor(unittest.TestCase):
+class TestKeywordReplacer(unittest.TestCase):
     def setUp(self):
         logger.info("Starting...")
         with open('test/keyword_extractor_test_cases.json') as f:
