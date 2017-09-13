@@ -8,16 +8,20 @@ FlashText's documentation!
 ==========================
 
 .. image:: https://api.travis-ci.org/vi3k6i5/flashtext.svg?branch=master
-   :target: https://travis-ci.org/vi3k6i5/flashtext
-   :alt: Build Status
+    :target: https://travis-ci.org/vi3k6i5/flashtext
+    :alt: Build Status
 
 .. image:: https://readthedocs.org/projects/flashtext/badge/?version=latest
-   :target: http://flashtext.readthedocs.io/en/latest/?badge=latest
-   :alt: Documentation Status
+    :target: http://flashtext.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
+.. image:: https://badge.fury.io/py/flashtext.svg
+    :target: https://badge.fury.io/py/flashtext
+    :alt: Version
 
 .. image:: https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000
-   :target: https://github.com/vi3k6i5/flashtext/blob/master/LICENSE
-   :alt: license
+    :target: https://github.com/vi3k6i5/flashtext/blob/master/LICENSE
+    :alt: license
 
 This module can be used to replace keywords in sentences or extract keywords from sentences.
 
