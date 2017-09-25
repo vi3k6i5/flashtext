@@ -68,6 +68,37 @@ No clean name for Keywords
     >>> keywords_found
     >>> # ['Big Apple', 'Bay Area']
 
+Add Multiple Keywords simultaneously
+    >>> from flashtext.keyword import KeywordProcessor
+    >>> keyword_processor = KeywordProcessor()
+    >>> keyword_dict = {
+    >>>     "java": ["java_2e", "java programing"],
+    >>>     "product management": ["PM", "product manager"]
+    >>> }
+    >>> # {'clean_name': ['list of unclean names']}
+    >>> keyword_processor.add_keywords_from_dict(keyword_dict)
+    >>> # Or add keywords from a list:
+    >>> keyword_processor.add_keywords_from_list(["java", "python"])
+    >>> keyword_processor.extract_keywords('I am a product manager for a java_2e platform')
+    >>> # output ['product management', 'java']
+
+To Remove keywords
+    >>> from flashtext.keyword import KeywordProcessor
+    >>> keyword_processor = KeywordProcessor()
+    >>> keyword_dict = {
+    >>>     "java": ["java_2e", "java programing"],
+    >>>     "product management": ["PM", "product manager"]
+    >>> }
+    >>> keyword_processor.add_keywords_from_dict(keyword_dict)
+    >>> print(keyword_processor.extract_keywords('I am a product manager for a java_2e platform'))
+    >>> # output ['product management', 'java']
+    >>> keyword_processor.remove_keyword('java_2e')
+    >>> # you can also remove keywords from a list/ dictionary
+    >>> keyword_processor.remove_keywords_from_dict({"product management": ["PM"]})
+    >>> keyword_processor.remove_keywords_from_list(["java programing"])
+    >>> keyword_processor.extract_keywords('I am a product manager for a java_2e platform')
+    >>> # output ['product management']
+
 For detecting Word Boundary currently any character other than this `\\w` `[A-Za-z0-9_]` is considered a word boundary.
 
 To set or add characters as part of word characters

@@ -457,5 +457,15 @@
         "explaination": "",
         "keywords": ["IRE1", "XBP1s", "UPR"],
         "keywords_case_sensitive": ["IRE1", "XBP1s"]
+    },
+    {
+        "sentence": "spring framework",
+        "keyword_dict": {
+            "spring framework": ["spring", "spring framework"],
+            "framework": ["framework"]
+        },
+        "explaination": "",
+        "keywords": ["spring framework"],
+        "keywords_case_sensitive": ["spring framework"]
     }
 ]

@@ -103,6 +103,55 @@ class KeywordProcessor(object):
                 current_dict = current_dict.setdefault(letter, {})
             current_dict[self._keyword] = clean_name
 
+    def remove_keyword(self, keyword):
+        """To remove one or more keywords to the dictionary
+        pass the keyword and the clean name it maps to.
+
+        Args:
+            keyword : string
+                keyword that you want to remove if it's present
+
+        Returns:
+            status : bool
+                The return value. True for success, False otherwise.
+
+        Examples:
+            >>> keyword_processor.add_keyword('Big Apple')
+            >>> keyword_processor.remove_keyword('Big Apple')
+            >>> # Returns True
+            >>> # This case 'Big Apple' will no longer be a recognized keyword
+            >>> keyword_processor.remove_keyword('Big Apple')
+            >>> # Returns False
+
+        """
+        status = False
+        if keyword:
+            if not self.case_sensitive:
+                keyword = keyword.lower()
+            current_dict = self.keyword_trie_dict
+            character_trie_list = []
+            for letter in keyword:
+                if letter in current_dict:
+                    character_trie_list.append((letter, current_dict))
+                    current_dict = current_dict[letter]
+            # remove the charactes from trie dict if there are no other keywords with them
+            if self._keyword in current_dict:
+                # we found a complete match for input keyword.
+                character_trie_list.append((self._keyword, current_dict))
+                character_trie_list.reverse()
+
+                for key_to_remove, dict_pointer in character_trie_list:
+                    if len(dict_pointer.keys()) == 1:
+                        dict_pointer.pop(key_to_remove)
+                    else:
+                        # more than one key means more than 1 path.
+                        # Delete not required path and keep the other
+                        dict_pointer.pop(key_to_remove)
+                        break
+                # successfully removed keyword
+                status = True
+        return status
+
     def add_keyword_from_file(self, keyword_file):
         """To add keywords from a file
 
@@ -164,11 +213,35 @@ class KeywordProcessor(object):
             for keyword in keywords:
                 self.add_keyword(keyword, clean_name)
 
+    def remove_keywords_from_dict(self, keyword_dict):
+        """To remove keywords from a dictionary
+
+        Args:
+            keyword_dict (dict): A dictionary with `str` key and (list `str`) as value
+
+        Examples:
+            >>> keyword_dict = {
+                    "java": ["java_2e", "java programing"],
+                    "product management": ["PM", "product manager"]
+                }
+            >>> keyword_processor.remove_keywords_from_dict(keyword_dict)
+
+        Raises:
+            AttributeError: If value for a key in `keyword_dict` is not a list.
+
+        """
+        for clean_name, keywords in keyword_dict.items():
+            if not isinstance(keywords, list):
+                raise AttributeError("Value of key {} should be a list".format(clean_name))
+
+            for keyword in keywords:
+                self.remove_keyword(keyword)
+
     def add_keywords_from_list(self, keyword_list):
         """To add keywords from a list
 
         Args:
-            keyword_list (list(str)): List of keywords
+            keyword_list (list(str)): List of keywords to add
 
         Examples:
             >>> keyword_processor.add_keywords_from_list(["java", "python"]})
@@ -181,6 +254,24 @@ class KeywordProcessor(object):
 
         for keyword in keyword_list:
             self.add_keyword(keyword)
+
+    def remove_keywords_from_list(self, keyword_list):
+        """To remove keywords present in list
+
+        Args:
+            keyword_list (list(str)): List of keywords to remove
+
+        Examples:
+            >>> keyword_processor.remove_keywords_from_list(["java", "python"]})
+        Raises:
+            AttributeError: If `keyword_list` is not a list.
+
+        """
+        if not isinstance(keyword_list, list):
+                raise AttributeError("keyword_list should be a list")
+
+        for keyword in keyword_list:
+            self.remove_keyword(keyword)
 
     def extract_keywords(self, sentence):
         """Searches in the string for all keywords present in corpus.
@@ -222,6 +313,7 @@ class KeywordProcessor(object):
                     # update longest sequence found
                     sequence_found = None
                     longest_sequence_found = None
+                    is_longer_seq_found = False
                     if self._keyword in current_dict:
                         sequence_found = current_dict[self._keyword]
                         longest_sequence_found = current_dict[self._keyword]
@@ -238,6 +330,7 @@ class KeywordProcessor(object):
                                 # update longest sequence found
                                 longest_sequence_found = current_dict_continued[self._keyword]
                                 sequence_end_pos = idy
+                                is_longer_seq_found = True
                             if inner_char in current_dict_continued:
                                 current_dict_continued = current_dict_continued[inner_char]
                             else:
@@ -249,7 +342,8 @@ class KeywordProcessor(object):
                                 # update longest sequence found
                                 longest_sequence_found = current_dict_continued[self._keyword]
                                 sequence_end_pos = idy
-                        if longest_sequence_found != sequence_found:
+                                is_longer_seq_found = True
+                        if is_longer_seq_found:
                             idx = sequence_end_pos
                     current_dict = self.keyword_trie_dict
                     if longest_sequence_found:
@@ -324,6 +418,7 @@ class KeywordProcessor(object):
                     # update longest sequence found
                     sequence_found = None
                     longest_sequence_found = None
+                    is_longer_seq_found = False
                     if self._keyword in current_dict:
                         sequence_found = current_dict[self._keyword]
                         longest_sequence_found = current_dict[self._keyword]
@@ -342,6 +437,7 @@ class KeywordProcessor(object):
                                 current_white_space = inner_char
                                 longest_sequence_found = current_dict_continued[self._keyword]
                                 sequence_end_pos = idy
+                                is_longer_seq_found = True
                             if inner_char in current_dict_continued:
                                 current_dict_continued = current_dict_continued[inner_char]
                             else:
@@ -354,7 +450,8 @@ class KeywordProcessor(object):
                                 current_white_space = ''
                                 longest_sequence_found = current_dict_continued[self._keyword]
                                 sequence_end_pos = idy
-                        if longest_sequence_found != sequence_found:
+                                is_longer_seq_found = True
+                        if is_longer_seq_found:
                             idx = sequence_end_pos
                             current_word = current_word_continued
                     current_dict = self.keyword_trie_dict

@@ -24,14 +24,18 @@ class TestKeywordReplacer(unittest.TestCase):
         """
         for test_id, test_case in enumerate(self.test_cases):
             keyword_replacer = KeywordProcessor()
-            keyword_replacer.add_keywords_from_dict(test_case['keyword_dict'])
+            # To handle issue like https://github.com/vi3k6i5/flashtext/issues/8
+            # clean names are replaced with "_" in place of white space.
+            for key, values in test_case['keyword_dict'].items():
+                for value in values:
+                    keyword_replacer.add_keyword(value, key.replace(" ", "_"))
             new_sentence = keyword_replacer.replace_keywords(test_case['sentence'])
 
             replaced_sentence = test_case['sentence']
             keyword_mapping = {}
             for val in test_case['keyword_dict']:
                 for value in test_case['keyword_dict'][val]:
-                    keyword_mapping[value] = val
+                    keyword_mapping[value] = val.replace(" ", "_")
             for key in sorted(keyword_mapping, key=len, reverse=True):
                 lowercase = re.compile(r'(?<!\w){}(?!\w)'.format(re.escape(key)))
                 replaced_sentence = lowercase.sub(keyword_mapping[key], replaced_sentence)

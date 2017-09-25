@@ -1,0 +1,105 @@
+[   
+    {
+        "sentence": "i like python programming",
+        "keyword_dict": {
+            "Python": ["python prog", "python programming"]
+        },
+        "remove_keyword_dict": {
+            "Python": ["python programming"]
+        },
+        "keywords": [],
+        "keywords_case_sensitive": []
+    },
+    {
+        "sentence": "i like python programming",
+        "keyword_dict": {
+            "Python": ["python prog", "python programming"]
+        },
+        "remove_keyword_dict": {
+            "Python": ["python prog"]
+        },
+        "keywords": ["Python"],
+        "keywords_case_sensitive": ["Python"]
+    },
+    {
+        "sentence": "distributed super distributed super computing institute java",
+        "keyword_dict": {
+            "Java": ["java"],
+            "Distributed Super Computing Institutes": ["distributed super computing institutes"],
+            "Institute": ["institute"],
+            "Distributed Super Computing": ["distributed super computing"]
+        },
+        "remove_keyword_dict": {
+            "Distributed Super Computing Institutes": ["distributed super computing institutes"]
+        },
+        "keywords": ["Distributed Super Computing", "Institute", "Java"],
+        "keywords_case_sensitive": ["Distributed Super Computing", "Institute", "Java"]
+    },
+    {
+        "sentence": "distributed super distributed super computing institute java",
+        "keyword_dict": {
+            "Java": ["java"],
+            "Distributed Super Computing Institute": ["distributed super computing institute"],
+            "Institute": ["institute"],
+            "Distributed Super Computing": ["distributed super computing"]
+        },
+        "remove_keyword_dict": {
+            "Distributed Super Computing": ["distributed super computing"]
+        },
+        "keywords": ["Distributed Super Computing Institute", "Java"],
+        "keywords_case_sensitive": ["Distributed Super Computing Institute", "Java"]
+    },
+    {
+        "sentence": "distributed super distributed super computing institute java",
+        "keyword_dict": {
+            "Java": ["java"],
+            "Distributed Super Computing Institutes": ["distributed super computing institutes"],
+            "Institute": ["institute"],
+            "Distributed Super Computing": ["distributed super computing"]
+        },
+        "remove_keyword_dict": {
+            "Distributed Super Computing Institutes": ["distributed super computing institutes"]
+        },
+        "keywords": ["Distributed Super Computing", "Institute", "Java"],
+        "keywords_case_sensitive": ["Distributed Super Computing", "Institute", "Java"]
+    },
+    {
+        "sentence": "distributed super distributed super computing institute java",
+        "keyword_dict": {
+            "Java": ["java"],
+            "Distributed Super Computing Institute": ["distributed super computing institute"],
+            "Institute": ["institute"],
+            "Distributed Super Computing": ["distributed super computing"]
+        },
+        "remove_keyword_dict": {
+            "Distributed Super Computing": ["distributed super computing"]
+        },
+        "keywords": ["Distributed Super Computing Institute", "Java"],
+        "keywords_case_sensitive": ["Distributed Super Computing Institute", "Java"]
+    },
+    {
+        "sentence": "targets relative to targets of the IRE1/XBP1s and PERK arms of the UPR",
+        "keyword_dict": {
+            "IRE1": ["IRE1"],
+            "XBP1s": ["XBP1s"],
+            "UPR": ["upr"]
+        },
+        "remove_keyword_dict": {
+            "IRE1": ["IRE1"]
+        },
+        "keywords": ["XBP1s", "UPR"],
+        "keywords_case_sensitive": ["XBP1s"]
+    },
+    {
+        "sentence": "spring framework",
+        "keyword_dict": {
+            "spring framework": ["spring", "spring framework"],
+            "framework": ["framework"]
+        },
+        "remove_keyword_dict": {
+            "spring framework": ["spring"]
+        },
+        "keywords": ["spring framework"],
+        "keywords_case_sensitive": ["spring framework"]
+    }
+]
