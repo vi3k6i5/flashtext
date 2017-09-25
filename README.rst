@@ -3,20 +3,20 @@ FlashText
 =========
 
 .. image:: https://api.travis-ci.org/vi3k6i5/flashtext.svg?branch=master
-    :target: https://travis-ci.org/vi3k6i5/flashtext
-    :alt: Build Status
+   :target: https://travis-ci.org/vi3k6i5/flashtext
+   :alt: Build Status
 
 .. image:: https://readthedocs.org/projects/flashtext/badge/?version=latest
-    :target: http://flashtext.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation Status
+   :target: http://flashtext.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
 
 .. image:: https://badge.fury.io/py/flashtext.svg
-    :target: https://badge.fury.io/py/flashtext
-    :alt: Version
+   :target: https://badge.fury.io/py/flashtext
+   :alt: Version
 
 .. image:: https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000
-    :target: https://github.com/vi3k6i5/flashtext/blob/master/LICENSE
-    :alt: license
+   :target: https://github.com/vi3k6i5/flashtext/blob/master/LICENSE
+   :alt: license
 
 This module can be used to replace keywords in sentences or extract keywords from sentences.
 
@@ -125,7 +125,7 @@ Test
 
 
 Build Docs
-----
+----------
 ::
 
     $ git clone https://github.com/vi3k6i5/flashtext
@@ -148,12 +148,13 @@ It's a custom algorithm based on `Aho-Corasick algorithm
 
 To do the same with regex it will take a lot of time:
 
-============  ========== = =========  ============
-Docs count    # Keywords : Regex      flashtext
-============  ========== = =========  ============
-1.5 million   2K         : 16 hours   Not measured
-2.5 million   10K        : 15 days    15 mins
-============  ========== = =========  ============
++-------------+------------+----------+---------------+
+| Docs count  | # Keywords | Regex    | flashtext     |
++=============+============+==========+===============+
+| 1.5 million | 2K         | 16 hours |  Not measured |
++-------------+------------+----------+---------------+
+| 2.5 million | 10K        | 15 days  |   15 mins     |
++-------------+------------+----------+---------------+
 
 The idea for this library came from the following `StackOverflow question
 <https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster>`_.

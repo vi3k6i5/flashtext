@@ -157,12 +157,13 @@ It's a custom algorithm based on `Aho-Corasick algorithm
 
 To do the same with regex it will take a lot of time:
 
-============  ========== = =========  ============
-Docs count    # Keywords : Regex      flashtext
-============  ========== = =========  ============
-1.5 million   2K         : 16 hours   Not measured
-2.5 million   10K        : 15 days    15 mins
-============  ========== = =========  ============
++-------------+------------+----------+---------------+
+| Docs count  | # Keywords | Regex    | flashtext     |
++=============+============+==========+===============+
+| 1.5 million | 2K         | 16 hours |  Not measured |
++-------------+------------+----------+---------------+
+| 2.5 million | 10K        | 15 days  |   15 mins     |
++-------------+------------+----------+---------------+
 
 The idea for this library came from the following `StackOverflow question
 <https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster>`_.
