@@ -7,9 +7,10 @@ sudo: false
 install:
   - pip install pytest
   - pip install pytest-cov
+  - pip install coveralls
   - python setup.py install
 script:
   - python setup.py test
-  - py.test --cov-config .coveragerc --cov=flashtext test/
+  - py.test --cov-config .coveragerc --cov=flashtext test/ --doctest-modules -v --cov-report term-missing
 after_success:
   - coveralls

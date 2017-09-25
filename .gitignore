@@ -105,3 +105,6 @@ how_to_test_setup_deploy.txt
 
 # pycharm
 .idea
+
+# coverage file
+.coverage
