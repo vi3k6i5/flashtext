@@ -9,6 +9,6 @@ install:
   - python setup.py install
 script:
   - python setup.py test
-  - coverage run --source=. setup.py test
+  - py.test --cov=flashtext test/
 after_success:
   - coveralls
