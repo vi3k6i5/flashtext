@@ -14,9 +14,14 @@ FlashText
    :target: https://badge.fury.io/py/flashtext
    :alt: Version
 
+.. image:: https://coveralls.io/repos/github/vi3k6i5/flashtext/badge.svg?branch=master
+   :target: https://coveralls.io/github/vi3k6i5/flashtext?branch=master
+   :alt: Test coverage
+
 .. image:: https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000
    :target: https://github.com/vi3k6i5/flashtext/blob/master/LICENSE
    :alt: license
+
 
 This module can be used to replace keywords in sentences or extract keywords from sentences.
 
