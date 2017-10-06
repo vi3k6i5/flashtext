@@ -33,6 +33,13 @@ Installation
     $ pip install flashtext
 
 
+API doc
+-------
+
+Documentation can be found at `FlashText Read the Docs
+<http://flashtext.readthedocs.io/>`_.
+
+
 Usage
 -----
 Extract keywords
@@ -110,13 +117,6 @@ To set or add characters as part of word characters
     >>> keyword_processor.add_non_word_boundary('/')
     >>> print(keyword_processor.extract_keywords('I love Big Apple/Bay Area.'))
     >>> # []
-
-
-API doc
--------
-
-Documentation can be found at `FlashText Read the Docs
-<http://flashtext.readthedocs.io/>`_.
 
 
 Test
