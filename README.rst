@@ -45,6 +45,7 @@ Usage
 Extract keywords
     >>> from flashtext.keyword import KeywordProcessor
     >>> keyword_processor = KeywordProcessor()
+    >>> # keyword_processor.add_keyword(<unclean name>, <standardised name>)
     >>> keyword_processor.add_keyword('Big Apple', 'New York')
     >>> keyword_processor.add_keyword('Bay Area')
     >>> keywords_found = keyword_processor.extract_keywords('I love Big Apple and Bay Area.')
