@@ -154,11 +154,15 @@ It's a custom algorithm based on `Aho-Corasick algorithm
 
 
 Time taken by FlashText to find terms in comparison to Regex.
-![Graph of time taken by FlashText to find terms in comparison to Regex.](https://thepracticaldev.s3.amazonaws.com/i/xruf50n6z1r37ti8rd89.png)
+
+.. image:: https://thepracticaldev.s3.amazonaws.com/i/xruf50n6z1r37ti8rd89.png
+
 
 Time taken by FlashText to replace terms in comparison to Regex.
-![Group of time taken by FlashText to replace terms in comparison to Regex.](https://thepracticaldev.s3.amazonaws.com/i/k44ghwp8o712dm58debj.png)
 
+.. image:: https://thepracticaldev.s3.amazonaws.com/i/k44ghwp8o712dm58debj.png
+
+Link to code for benchmarking the `Find Feature <https://gist.github.com/vi3k6i5/604eefd92866d081cfa19f862224e4a0>`_ and `Replace Feature <https://gist.github.com/vi3k6i5/dc3335ee46ab9f650b19885e8ade6c7a>`_.
 
 The idea for this library came from the following `StackOverflow question
 <https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster>`_.
