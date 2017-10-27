@@ -1,4 +1,4 @@
-from flashtext.keyword import KeywordProcessor
+from flashtext import KeywordProcessor
 import logging
 import unittest
 import json

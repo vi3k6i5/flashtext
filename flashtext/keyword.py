@@ -17,7 +17,7 @@ class KeywordProcessor(object):
 
     Examples:
         >>> # import module
-        >>> from flashtext.keyword import KeywordProcessor
+        >>> from flashtext import KeywordProcessor
         >>> # Create an object of KeywordProcessor
         >>> keyword_processor = KeywordProcessor()
         >>> # add keywords
@@ -284,7 +284,7 @@ class KeywordProcessor(object):
             keywords_extracted (list(str)): List of terms/keywords found in sentence that match our corpus
 
         Examples:
-            >>> from flashtext.keyword import KeywordProcessor
+            >>> from flashtext import KeywordProcessor
             >>> keyword_processor = KeywordProcessor()
             >>> keyword_processor.add_keyword('Big Apple', 'New York')
             >>> keyword_processor.add_keyword('Bay Area')
@@ -385,7 +385,7 @@ class KeywordProcessor(object):
             new_sentence (str): Line of text with replaced keywords
 
         Examples:
-            >>> from flashtext.keyword import KeywordProcessor
+            >>> from flashtext import KeywordProcessor
             >>> keyword_processor = KeywordProcessor()
             >>> keyword_processor.add_keyword('Big Apple', 'New York')
             >>> keyword_processor.add_keyword('Bay Area')
