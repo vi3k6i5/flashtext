@@ -40,7 +40,7 @@ Installation
 Usage
 -----
 Extract keywords
-    >>> from flashtext.keyword import KeywordProcessor
+    >>> from flashtext import KeywordProcessor
     >>> keyword_processor = KeywordProcessor()
     >>> # keyword_processor.add_keyword(<unclean name>, <standardised name>)
     >>> keyword_processor.add_keyword('Big Apple', 'New York')
@@ -56,7 +56,7 @@ Replace keywords
     >>> # 'I love New York and NCR region.'
 
 Case Sensitive example
-    >>> from flashtext.keyword import KeywordProcessor
+    >>> from flashtext import KeywordProcessor
     >>> keyword_processor = KeywordProcessor(case_sensitive=True)
     >>> keyword_processor.add_keyword('Big Apple', 'New York')
     >>> keyword_processor.add_keyword('Bay Area')
@@ -65,7 +65,7 @@ Case Sensitive example
     >>> # ['Bay Area']
 
 No clean name for Keywords
-    >>> from flashtext.keyword import KeywordProcessor
+    >>> from flashtext import KeywordProcessor
     >>> keyword_processor = KeywordProcessor()
     >>> keyword_processor.add_keyword('Big Apple')
     >>> keyword_processor.add_keyword('Bay Area')
@@ -74,7 +74,7 @@ No clean name for Keywords
     >>> # ['Big Apple', 'Bay Area']
 
 Add Multiple Keywords simultaneously
-    >>> from flashtext.keyword import KeywordProcessor
+    >>> from flashtext import KeywordProcessor
     >>> keyword_processor = KeywordProcessor()
     >>> keyword_dict = {
     >>>     "java": ["java_2e", "java programing"],
@@ -88,7 +88,7 @@ Add Multiple Keywords simultaneously
     >>> # output ['product management', 'java']
 
 To Remove keywords
-    >>> from flashtext.keyword import KeywordProcessor
+    >>> from flashtext import KeywordProcessor
     >>> keyword_processor = KeywordProcessor()
     >>> keyword_dict = {
     >>>     "java": ["java_2e", "java programing"],
@@ -107,7 +107,7 @@ To Remove keywords
 For detecting Word Boundary currently any character other than this `\\w` `[A-Za-z0-9_]` is considered a word boundary.
 
 To set or add characters as part of word characters
-    >>> from flashtext.keyword import KeywordProcessor
+    >>> from flashtext import KeywordProcessor
     >>> keyword_processor = KeywordProcessor()
     >>> keyword_processor.add_keyword('Big Apple')
     >>> print(keyword_processor.extract_keywords('I love Big Apple/Bay Area.'))

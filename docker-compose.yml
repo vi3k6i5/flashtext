@@ -1,4 +1,4 @@
-version: '3.3'
+version: '2.0'
 
 services:
     pytest-python2.7:
@@ -15,15 +15,29 @@ services:
         - .:/app
       working_dir: /app
 
-    pytest-python2.7/i386:
+    pytest-python3.5:
+      image: python:3.5
+      command: bash -c "pip install pytest; python setup.py test"
+      volumes:
+        - .:/app
+      working_dir: /app
+
+    pytest-python2.7-i386:
       image: i386/python:2.7
       command: bash -c "pip install pytest; python setup.py test"
       volumes:
         - .:/app
       working_dir: /app
 
-    pytest-python3.3/i386:
+    pytest-python3.3-i386:
       image: i386/python:3.3
+      command: bash -c "pip install pytest; python setup.py test"
+      volumes:
+        - .:/app
+      working_dir: /app
+
+    pytest-python3.5-i386:
+      image: i386/python:3.5
       command: bash -c "pip install pytest; python setup.py test"
       volumes:
         - .:/app

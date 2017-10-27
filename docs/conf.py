@@ -153,5 +153,5 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
-
-
+charset_type = 'utf-8'
+charset_table = '0..9, A..Z->a..z, _, a..z, -, [, ]'
