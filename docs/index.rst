@@ -27,7 +27,7 @@ FlashText's documentation!
     :target: https://github.com/vi3k6i5/flashtext/blob/master/LICENSE
     :alt: license
 
-This module can be used to replace keywords in sentences or extract keywords from sentences.
+This module can be used to replace keywords in sentences or extract keywords from sentences. It is based on the `FlashText algorithm <https://arxiv.org/abs/1711.00046>`_.
 
 
 Installation
@@ -174,6 +174,12 @@ Link to code for benchmarking the `Find Feature <https://gist.github.com/vi3k6i5
 
 The idea for this library came from the following `StackOverflow question
 <https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster>`_.
+
+
+References
+----------
+
+The original paper I published on `FlashText algorithm <https://arxiv.org/abs/1711.00046>`_.
 
 
 Contribute
