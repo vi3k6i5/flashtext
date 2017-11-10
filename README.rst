@@ -171,7 +171,9 @@ The idea for this library came from the following `StackOverflow question
 References
 ----------
 
-The original paper I published on `FlashText algorithm <https://arxiv.org/abs/1711.00046>`_.
+The original paper published on `FlashText algorithm <https://arxiv.org/abs/1711.00046>`_.
+
+The article published on `Medium freeCodeCamp <https://medium.freecodecamp.org/regex-was-taking-5-days-flashtext-does-it-in-15-minutes-55f04411025f>`_.
 
 
 Contribute
