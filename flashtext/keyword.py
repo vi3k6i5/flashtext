@@ -50,6 +50,17 @@ class KeywordProcessor(object):
             self.non_word_boundaries = set(string.digits + string.ascii_letters + '_')
         self.keyword_trie_dict = dict()
         self.case_sensitive = case_sensitive
+        self._terms_in_trie = 0
+
+    def __len__(self):
+        """set of characters that will be considered as part of word.
+
+        Returns:
+            length : int
+                Count of number of distinct terms in trie dictionary.
+
+        """
+        return self._terms_in_trie
 
     def set_non_word_boundaries(self, non_word_boundaries):
         """set of characters that will be considered as part of word.
@@ -83,6 +94,10 @@ class KeywordProcessor(object):
                 clean term for that keyword that you would want to get back in return or replace
                 if not provided, keyword will be used as the clean name also.
 
+        Returns:
+            status : bool
+                The return value. True for success, False otherwise.
+
         Examples:
             >>> keyword_processor.add_keyword('Big Apple', 'New York')
             >>> # This case 'Big Apple' will return 'New York'
@@ -91,7 +106,7 @@ class KeywordProcessor(object):
             >>> # This case 'Big Apple' will return 'Big Apple'
 
         """
-
+        status = False
         if not clean_name and keyword:
             clean_name = keyword
 
@@ -101,7 +116,11 @@ class KeywordProcessor(object):
             current_dict = self.keyword_trie_dict
             for letter in keyword:
                 current_dict = current_dict.setdefault(letter, {})
+            if self._keyword not in current_dict:
+                status = True
+                self._terms_in_trie += 1
             current_dict[self._keyword] = clean_name
+        return status
 
     def remove_keyword(self, keyword):
         """To remove one or more keywords to the dictionary
@@ -150,6 +169,7 @@ class KeywordProcessor(object):
                         break
                 # successfully removed keyword
                 status = True
+                self._terms_in_trie -= 1
         return status
 
     def add_keyword_from_file(self, keyword_file):
