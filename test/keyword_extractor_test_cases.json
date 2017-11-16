@@ -89,7 +89,7 @@
         },
         "explaination": "Single char keyword before the end of the sentence.",
         "keywords": ["R"],
-        "keywords_case_sensitive": ["R"]
+        "keywords_case_sensitive": []
     },
     {
         "sentence": "I like R java",
@@ -99,12 +99,12 @@
         },
         "explaination": "Multiple keywords in the end of the sentence.",
         "keywords": ["R", "Java"],
-        "keywords_case_sensitive": ["R", "Java"]
+        "keywords_case_sensitive": ["Java"]
     },
     {
         "sentence": "I like R and java",
         "keyword_dict": {
-            "R": ["r"],
+            "R": ["R"],
             "Java": ["java"]
         },
         "explaination": "Multiple keywords in the sentence with other word in between.",
@@ -118,12 +118,12 @@
         },
         "explaination": "Single character keyword in the sentence.",
         "keywords": ["R"],
-        "keywords_case_sensitive": ["R"]
+        "keywords_case_sensitive": []
     },
     {
-        "sentence": " r",
+        "sentence": " R",
         "keyword_dict": {
-            "R": ["r"]
+            "R": ["R"]
         },
         "explaination": "Single character keyword in the sentence with space prefix.",
         "keywords": ["R"],
@@ -136,7 +136,7 @@
         },
         "explaination": "Multi word Keyword at the end of the sentence.",
         "keywords": ["Distributed Super Computing"],
-        "keywords_case_sensitive": ["distributed super computing"]
+        "keywords_case_sensitive": ["Distributed Super Computing"]
     },
     {
         "sentence": "distributed super computing I like",
@@ -145,7 +145,7 @@
         },
         "explaination": "Multi word Keyword at the beginning of the sentence.",
         "keywords": ["Distributed Super Computing"],
-        "keywords_case_sensitive": ["distributed super computing"]
+        "keywords_case_sensitive": ["Distributed Super Computing"]
     },
     {
         "sentence": "I like distributed super computing also",
@@ -154,7 +154,7 @@
         },
         "explaination": "Multi word Keyword before the end of the sentence.",
         "keywords": ["Distributed Super Computing"],
-        "keywords_case_sensitive": ["distributed super computing"]
+        "keywords_case_sensitive": ["Distributed Super Computing"]
     },
     {
         "sentence": "I like distributed super computing java",
@@ -164,7 +164,7 @@
         },
         "explaination": "Multi word Keyword at the end of the sentence.",
         "keywords": ["Distributed Super Computing", "Java"],
-        "keywords_case_sensitive": ["distributed super computing", "Java"]
+        "keywords_case_sensitive": ["Distributed Super Computing", "Java"]
     },
     {
         "sentence": "I like distributed super computing java programing",
@@ -174,7 +174,7 @@
         },
         "explaination": "Multiple Multi word Keyword at the end of the sentence.",
         "keywords": ["Distributed Super Computing", "Java"],
-        "keywords_case_sensitive": ["distributed super computing", "Java"]
+        "keywords_case_sensitive": ["Distributed Super Computing", "Java"]
     },
     {
         "sentence": "I like distributed super computing and java",
@@ -184,7 +184,7 @@
         },
         "explaination": "Multiple keywords in the sentence with other word in between.",
         "keywords": ["Distributed Super Computing", "Java"],
-        "keywords_case_sensitive": ["distributed super computing", "Java"]
+        "keywords_case_sensitive": ["Distributed Super Computing", "Java"]
     },
     {
         "sentence": "distributed super computing",
@@ -193,7 +193,7 @@
         },
         "explaination": "Single Multi word Keyword in the sentence.",
         "keywords": ["Distributed Super Computing"],
-        "keywords_case_sensitive": ["distributed super computing"]
+        "keywords_case_sensitive": ["Distributed Super Computing"]
     },
     {
         "sentence": " distributed super computing",
@@ -202,7 +202,7 @@
         },
         "explaination": "Single Multi word Keyword in the sentence with space prefix.",
         "keywords": ["Distributed Super Computing"],
-        "keywords_case_sensitive": ["distributed super computing"]
+        "keywords_case_sensitive": ["Distributed Super Computing"]
     },
     {
         "sentence": "distributed super computing distributed super computing",
