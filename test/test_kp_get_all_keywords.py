@@ -15,7 +15,7 @@ class TestKPGetAllKeywords(unittest.TestCase):
     def tearDown(self):
         logger.info("Ending.")
 
-    def test_list_loading(self):
+    def test_get_all_keywords(self):
         keyword_processor = KeywordProcessor()
         keyword_processor.add_keyword('j2ee', 'Java')
         keyword_processor.add_keyword('colour', 'color')
