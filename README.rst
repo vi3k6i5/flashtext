@@ -118,6 +118,18 @@ To check Number of terms in KeywordProcessor
     >>> print(len(keyword_processor))
     >>> # output 4
 
+To check if term is present in KeywordProcessor
+    >>> from flashtext import KeywordProcessor
+    >>> keyword_processor = KeywordProcessor()
+    >>> keyword_processor.add_keyword('j2ee', 'Java')
+    >>> 'j2ee' in keyword_processor
+    >>> # output: True
+    >>> keyword_processor.get_keyword('j2ee')
+    >>> # output: Java
+    >>> keyword_processor['colour'] = 'color'
+    >>> keyword_processor['colour']
+    >>> # output: color
+
 For detecting Word Boundary currently any character other than this `\\w` `[A-Za-z0-9_]` is considered a word boundary.
 
 To set or add characters as part of word characters
