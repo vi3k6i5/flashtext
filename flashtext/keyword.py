@@ -50,6 +50,152 @@ class KeywordProcessor(object):
             self.non_word_boundaries = set(string.digits + string.ascii_letters + '_')
         self.keyword_trie_dict = dict()
         self.case_sensitive = case_sensitive
+        self._terms_in_trie = 0
+
+    def __len__(self):
+        """Number of terms present in the keyword_trie_dict
+
+        Returns:
+            length : int
+                Count of number of distinct terms in trie dictionary.
+
+        """
+        return self._terms_in_trie
+
+    def __contains__(self, word):
+        """To check if word is present in the keyword_trie_dict
+
+        Args:
+            word : string
+                word that you want to check
+
+        Returns:
+            status : bool
+                If word is present as it is in keyword_trie_dict then we return True, else False
+
+        Examples:
+            >>> keyword_processor.add_keyword('Big Apple')
+            >>> 'Big Apple' in keyword_processor
+            >>> # True
+
+        """
+        if not self.case_sensitive:
+            word = word.lower()
+        current_dict = self.keyword_trie_dict
+        len_covered = 0
+        for char in word:
+            if char in current_dict:
+                current_dict = current_dict[char]
+                len_covered += 1
+            else:
+                break
+        return self._keyword in current_dict and len_covered == len(word)
+
+    def __getitem__(self, word):
+        """if word is present in keyword_trie_dict return the clean name for it.
+
+        Args:
+            word : string
+                word that you want to check
+
+        Returns:
+            keyword : string
+                If word is present as it is in keyword_trie_dict then we return keyword mapped to it.
+
+        Examples:
+            >>> keyword_processor.add_keyword('Big Apple', 'New York')
+            >>> keyword_processor['Big Apple']
+            >>> # New York
+        """
+        if not self.case_sensitive:
+            word = word.lower()
+        current_dict = self.keyword_trie_dict
+        len_covered = 0
+        for char in word:
+            if char in current_dict:
+                current_dict = current_dict[char]
+                len_covered += 1
+            else:
+                break
+        if self._keyword in current_dict and len_covered == len(word):
+            return current_dict[self._keyword]
+
+    def __setitem__(self, keyword, clean_name=None):
+        """To add keyword to the dictionary
+        pass the keyword and the clean name it maps to.
+
+        Args:
+            keyword : string
+                keyword that you want to identify
+
+            clean_name : string
+                clean term for that keyword that you would want to get back in return or replace
+                if not provided, keyword will be used as the clean name also.
+
+        Examples:
+            >>> keyword_processor['Big Apple'] = 'New York'
+        """
+        status = False
+        if not clean_name and keyword:
+            clean_name = keyword
+
+        if keyword and clean_name:
+            if not self.case_sensitive:
+                keyword = keyword.lower()
+            current_dict = self.keyword_trie_dict
+            for letter in keyword:
+                current_dict = current_dict.setdefault(letter, {})
+            if self._keyword not in current_dict:
+                status = True
+                self._terms_in_trie += 1
+            current_dict[self._keyword] = clean_name
+        return status
+
+    def __delitem__(self, keyword):
+        """To remove keyword from the dictionary
+        pass the keyword and the clean name it maps to.
+
+        Args:
+            keyword : string
+                keyword that you want to remove if it's present
+
+        Examples:
+            >>> keyword_processor.add_keyword('Big Apple')
+            >>> del keyword_processor['Big Apple']
+        """
+        status = False
+        if keyword:
+            if not self.case_sensitive:
+                keyword = keyword.lower()
+            current_dict = self.keyword_trie_dict
+            character_trie_list = []
+            for letter in keyword:
+                if letter in current_dict:
+                    character_trie_list.append((letter, current_dict))
+                    current_dict = current_dict[letter]
+            # remove the charactes from trie dict if there are no other keywords with them
+            if self._keyword in current_dict:
+                # we found a complete match for input keyword.
+                character_trie_list.append((self._keyword, current_dict))
+                character_trie_list.reverse()
+
+                for key_to_remove, dict_pointer in character_trie_list:
+                    if len(dict_pointer.keys()) == 1:
+                        dict_pointer.pop(key_to_remove)
+                    else:
+                        # more than one key means more than 1 path.
+                        # Delete not required path and keep the other
+                        dict_pointer.pop(key_to_remove)
+                        break
+                # successfully removed keyword
+                status = True
+                self._terms_in_trie -= 1
+        return status
+
+    def __iter__(self):
+        """Disabled iteration as get_all_keywords() is the right way to iterate
+        """
+        raise NotImplementedError("Please use get_all_keywords() instead")
 
     def set_non_word_boundaries(self, non_word_boundaries):
         """set of characters that will be considered as part of word.
@@ -83,28 +229,21 @@ class KeywordProcessor(object):
                 clean term for that keyword that you would want to get back in return or replace
                 if not provided, keyword will be used as the clean name also.
 
+        Returns:
+            status : bool
+                The return value. True for success, False otherwise.
+
         Examples:
             >>> keyword_processor.add_keyword('Big Apple', 'New York')
             >>> # This case 'Big Apple' will return 'New York'
             >>> # OR
             >>> keyword_processor.add_keyword('Big Apple')
             >>> # This case 'Big Apple' will return 'Big Apple'
-
         """
-
-        if not clean_name and keyword:
-            clean_name = keyword
-
-        if keyword and clean_name:
-            if not self.case_sensitive:
-                keyword = keyword.lower()
-            current_dict = self.keyword_trie_dict
-            for letter in keyword:
-                current_dict = current_dict.setdefault(letter, {})
-            current_dict[self._keyword] = clean_name
+        return self.__setitem__(keyword, clean_name)
 
     def remove_keyword(self, keyword):
-        """To remove one or more keywords to the dictionary
+        """To remove one or more keywords from the dictionary
         pass the keyword and the clean name it maps to.
 
         Args:
@@ -124,33 +263,25 @@ class KeywordProcessor(object):
             >>> # Returns False
 
         """
-        status = False
-        if keyword:
-            if not self.case_sensitive:
-                keyword = keyword.lower()
-            current_dict = self.keyword_trie_dict
-            character_trie_list = []
-            for letter in keyword:
-                if letter in current_dict:
-                    character_trie_list.append((letter, current_dict))
-                    current_dict = current_dict[letter]
-            # remove the charactes from trie dict if there are no other keywords with them
-            if self._keyword in current_dict:
-                # we found a complete match for input keyword.
-                character_trie_list.append((self._keyword, current_dict))
-                character_trie_list.reverse()
+        return self.__delitem__(keyword)
 
-                for key_to_remove, dict_pointer in character_trie_list:
-                    if len(dict_pointer.keys()) == 1:
-                        dict_pointer.pop(key_to_remove)
-                    else:
-                        # more than one key means more than 1 path.
-                        # Delete not required path and keep the other
-                        dict_pointer.pop(key_to_remove)
-                        break
-                # successfully removed keyword
-                status = True
-        return status
+    def get_keyword(self, word):
+        """if word is present in keyword_trie_dict return the clean name for it.
+
+        Args:
+            word : string
+                word that you want to check
+
+        Returns:
+            keyword : string
+                If word is present as it is in keyword_trie_dict then we return keyword mapped to it.
+
+        Examples:
+            >>> keyword_processor.add_keyword('Big Apple', 'New York')
+            >>> keyword_processor.get('Big Apple')
+            >>> # New York
+        """
+        return self.__getitem__(word)
 
     def add_keyword_from_file(self, keyword_file):
         """To add keywords from a file
@@ -272,6 +403,43 @@ class KeywordProcessor(object):
 
         for keyword in keyword_list:
             self.remove_keyword(keyword)
+
+    def get_all_keywords(self, term_so_far='', current_dict=None):
+        """Recursively builds a dictionary of keywords present in the dictionary
+        And the clean name mapped to those keywords.
+
+        Args:
+            term_so_far : string
+                term built so far by adding all previous charactes
+            current_dict : dict
+                current recursive position in dictionary
+
+        Returns:
+            terms_present : dict
+                A map of key and value where each key is a term in the keyword_trie_dict.
+                And value mapped to it is the clean name mapped to it.
+
+        Examples:
+            >>> keyword_processor = KeywordProcessor()
+            >>> keyword_processor.add_keyword('j2ee', 'Java')
+            >>> keyword_processor.add_keyword('Python', 'Python')
+            >>> keyword_processor.get_all_keywords()
+            >>> {'j2ee': 'Java', 'python': 'Python'}
+            >>> # NOTE: for case_insensitive all keys will be lowercased.
+        """
+        terms_present = {}
+        if not term_so_far:
+            term_so_far = ''
+        if current_dict is None:
+            current_dict = self.keyword_trie_dict
+        for key in current_dict:
+            if key == '_keyword_':
+                terms_present[term_so_far] = current_dict[key]
+            else:
+                sub_values = self.get_all_keywords(term_so_far + key, current_dict[key])
+                for key in sub_values:
+                    terms_present[key] = sub_values[key]
+        return terms_present
 
     def extract_keywords(self, sentence):
         """Searches in the string for all keywords present in corpus.
