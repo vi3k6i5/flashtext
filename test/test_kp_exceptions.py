@@ -30,7 +30,13 @@ class TestKPExceptions(unittest.TestCase):
         with pytest.raises(IOError):
             keyword_processor.add_keyword_from_file('missing_file')
 
-    def test_add_keyword_file_missing(self):
+    def test_add_keyword_from_list(self):
+        keyword_processor = KeywordProcessor()
+        keyword_list = "java"
+        with pytest.raises(AttributeError):
+            keyword_processor.add_keywords_from_list(keyword_list)
+
+    def test_add_keyword_from_dictionary(self):
         keyword_processor = KeywordProcessor()
         keyword_dict = {
             "java": "java_2e",
@@ -38,6 +44,21 @@ class TestKPExceptions(unittest.TestCase):
         }
         with pytest.raises(AttributeError):
             keyword_processor.add_keywords_from_dict(keyword_dict)
+
+    def test_remove_keyword_from_list(self):
+        keyword_processor = KeywordProcessor()
+        keyword_list = "java"
+        with pytest.raises(AttributeError):
+            keyword_processor.remove_keywords_from_list(keyword_list)
+
+    def test_remove_keyword_from_dictionary(self):
+        keyword_processor = KeywordProcessor()
+        keyword_dict = {
+            "java": "java_2e",
+            "product management": "product manager"
+        }
+        with pytest.raises(AttributeError):
+            keyword_processor.remove_keywords_from_dict(keyword_dict)
 
     def test_empty_string(self):
         keyword_processor = KeywordProcessor()

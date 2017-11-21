@@ -381,7 +381,7 @@ class KeywordProcessor(object):
 
         """
         if not isinstance(keyword_list, list):
-                raise AttributeError("keyword_list should be a list")
+            raise AttributeError("keyword_list should be a list")
 
         for keyword in keyword_list:
             self.add_keyword(keyword)
@@ -441,7 +441,7 @@ class KeywordProcessor(object):
                     terms_present[key] = sub_values[key]
         return terms_present
 
-    def extract_keywords(self, sentence):
+    def extract_keywords(self, sentence, span_info=False):
         """Searches in the string for all keywords present in corpus.
         Keywords present are added to a list `keywords_extracted` and returned.
 
@@ -468,7 +468,9 @@ class KeywordProcessor(object):
         if not self.case_sensitive:
             sentence = sentence.lower()
         current_dict = self.keyword_trie_dict
+        sequence_start_pos = 0
         sequence_end_pos = 0
+        reset_current_dict = False
         idx = 0
         sentence_len = len(sentence)
         while idx < sentence_len:
@@ -515,17 +517,19 @@ class KeywordProcessor(object):
                             idx = sequence_end_pos
                     current_dict = self.keyword_trie_dict
                     if longest_sequence_found:
-                        keywords_extracted.append(longest_sequence_found)
-
+                        keywords_extracted.append((longest_sequence_found, sequence_start_pos, idx))
+                    reset_current_dict = True
                 else:
                     # we reset current_dict
                     current_dict = self.keyword_trie_dict
+                    reset_current_dict = True
             elif char in current_dict:
                 # we can continue from this char
                 current_dict = current_dict[char]
             else:
                 # we reset current_dict
                 current_dict = self.keyword_trie_dict
+                reset_current_dict = True
                 # skip to end of word
                 idy = idx + 1
                 while idy < sentence_len:
@@ -538,9 +542,14 @@ class KeywordProcessor(object):
             if idx + 1 >= sentence_len:
                 if self._keyword in current_dict:
                     sequence_found = current_dict[self._keyword]
-                    keywords_extracted.append(sequence_found)
+                    keywords_extracted.append((sequence_found, sequence_start_pos, sentence_len))
             idx += 1
-        return keywords_extracted
+            if reset_current_dict:
+                reset_current_dict = False
+                sequence_start_pos = idx
+        if span_info:
+            return keywords_extracted
+        return [value[0] for value in keywords_extracted]
 
     def replace_keywords(self, sentence):
         """Searches in the string for all keywords present in corpus.

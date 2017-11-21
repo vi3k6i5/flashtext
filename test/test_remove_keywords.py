@@ -31,6 +31,21 @@ class TestKeywordRemover(unittest.TestCase):
             self.assertEqual(keywords_extracted, test_case['keywords'],
                              "keywords_extracted don't match the expected results for test case: {}".format(test_id))
 
+    def test_remove_keywords_using_list(self):
+        """For each of the test case initialize a new KeywordProcessor.
+        Add the keywords the test case to KeywordProcessor.
+        Remove the keywords in remove_keyword_dict
+        Extract keywords and check if they match the expected result for the test case.
+        """
+        for test_id, test_case in enumerate(self.test_cases):
+            keyword_processor = KeywordProcessor()
+            keyword_processor.add_keywords_from_dict(test_case['keyword_dict'])
+            for key in test_case['remove_keyword_dict']:
+                keyword_processor.remove_keywords_from_list(test_case['remove_keyword_dict'][key])
+            keywords_extracted = keyword_processor.extract_keywords(test_case['sentence'])
+            self.assertEqual(keywords_extracted, test_case['keywords'],
+                             "keywords_extracted don't match the expected results for test case: {}".format(test_id))
+
     def test_remove_keywords_dictionary_compare(self):
         """For each of the test case initialize a new KeywordProcessor.
         Add the keywords the test case to KeywordProcessor.
