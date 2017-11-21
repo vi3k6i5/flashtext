@@ -207,8 +207,27 @@ The idea for this library came from the following `StackOverflow question
 <https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster>`_.
 
 
-References
+Citation
 ----------
+
+The original paper published on `FlashText algorithm <https://arxiv.org/abs/1711.00046>`_.
+
+::
+
+    @ARTICLE{2017arXiv171100046S,
+       author = {{Singh}, V.},
+        title = "{Replace or Retrieve Keywords In Documents at Scale}",
+      journal = {ArXiv e-prints},
+    archivePrefix = "arXiv",
+       eprint = {1711.00046},
+     primaryClass = "cs.DS",
+     keywords = {Computer Science - Data Structures and Algorithms},
+         year = 2017,
+        month = oct,
+       adsurl = {http://adsabs.harvard.edu/abs/2017arXiv171100046S},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+    }
+
 
 The original paper published on `FlashText algorithm <https://arxiv.org/abs/1711.00046>`_.
 
