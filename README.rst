@@ -255,4 +255,4 @@ The project is licensed under the MIT license.
 
 Adopters
 --------
-`NLpre <https://github.com/NIHOPA/NLPre>`_ Natural Language Preprocessing
+`NLPre <https://github.com/NIHOPA/NLPre>`_: Natural Language Preprocessing
