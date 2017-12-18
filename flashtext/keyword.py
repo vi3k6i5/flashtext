@@ -283,12 +283,13 @@ class KeywordProcessor(object):
         """
         return self.__getitem__(word)
 
-    def add_keyword_from_file(self, keyword_file):
+    def add_keyword_from_file(self, keyword_file, file_encoding='utf-8'):
         """To add keywords from a file
 
         Args:
             keyword_file : path to keywords file
-
+            file_encoding : specify the encoding of the file
+            
         Examples:
             keywords file format can be like:
 
@@ -311,7 +312,7 @@ class KeywordProcessor(object):
         """
         if not os.path.isfile(keyword_file):
             raise IOError("Invalid file path {}".format(keyword_file))
-        with open(keyword_file)as f:
+        with open(keyword_file, encoding=file_encoding) as f:
             for line in f:
                 if '=>' in line:
                     keyword, clean_name = line.split('=>')
