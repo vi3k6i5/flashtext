@@ -174,7 +174,7 @@ class KeywordProcessor(object):
                 if letter in current_dict:
                     character_trie_list.append((letter, current_dict))
                     current_dict = current_dict[letter]
-            # remove the charactes from trie dict if there are no other keywords with them
+            # remove the characters from trie dict if there are no other keywords with them
             if self._keyword in current_dict:
                 # we found a complete match for input keyword.
                 character_trie_list.append((self._keyword, current_dict))
@@ -411,7 +411,7 @@ class KeywordProcessor(object):
 
         Args:
             term_so_far : string
-                term built so far by adding all previous charactes
+                term built so far by adding all previous characters
             current_dict : dict
                 current recursive position in dictionary
 
