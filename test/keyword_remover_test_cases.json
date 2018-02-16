@@ -101,5 +101,16 @@
         },
         "keywords": ["spring framework"],
         "keywords_case_sensitive": ["spring framework"]
+    },
+    {
+        "sentence": "computer vision",
+        "keyword_dict": {
+            "computer vision": ["computer vision"]
+        },
+        "remove_keyword_dict": {
+            "computer vision center": ["computer vision center"]
+        },
+        "keywords": ["computer vision"],
+        "keywords_case_sensitive": ["computer vision"]
     }
 ]
