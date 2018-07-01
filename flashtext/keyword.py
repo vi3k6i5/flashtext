@@ -164,38 +164,30 @@ class KeywordProcessor(object):
             >>> keyword_processor.add_keyword('Big Apple')
             >>> del keyword_processor['Big Apple']
         """
-        status = False
-        if keyword:
-            if not self.case_sensitive:
-                keyword = keyword.lower()
-            current_dict = self.keyword_trie_dict
-            character_trie_list = []
-            for letter in keyword:
-                if letter in current_dict:
-                    character_trie_list.append((letter, current_dict))
-                    current_dict = current_dict[letter]
-                else:
-                    # if character is not found, break out of the loop
-                    current_dict = None
-                    break
-            # remove the characters from trie dict if there are no other keywords with them
-            if current_dict and self._keyword in current_dict:
-                # we found a complete match for input keyword.
-                character_trie_list.append((self._keyword, current_dict))
-                character_trie_list.reverse()
+        if not keyword:
+            return False
 
-                for key_to_remove, dict_pointer in character_trie_list:
-                    if len(dict_pointer.keys()) == 1:
-                        dict_pointer.pop(key_to_remove)
-                    else:
-                        # more than one key means more than 1 path.
-                        # Delete not required path and keep the other
-                        dict_pointer.pop(key_to_remove)
-                        break
-                # successfully removed keyword
-                status = True
-                self._terms_in_trie -= 1
-        return status
+        if not self.case_sensitive:
+            keyword = keyword.lower()
+        current_dict = self.keyword_trie_dict
+        last_branch = (keyword[0], current_dict)
+
+        for letter in keyword:
+            if letter not in current_dict:
+                return False
+            if len(current_dict) > 1:
+                last_branch = (letter, current_dict)
+            current_dict = current_dict[letter]
+
+        if len(current_dict) > 1:
+            last_branch = (self._keyword, current_dict)
+
+        if self._keyword in current_dict:
+            letter, dict = last_branch
+            del dict[letter]
+            self._terms_in_trie -= 1
+            return True
+        return False
 
     def __iter__(self):
         """Disabled iteration as get_all_keywords() is the right way to iterate
