@@ -57,6 +57,12 @@ Replace keywords
     >>> new_sentence = keyword_processor.replace_keywords('I love Big Apple and new delhi.')
     >>> new_sentence
     >>> # 'I love New York and NCR region.'
+    
+Insert around keywords
+    >>> keyword_processor.add_keyword('Important Phrase', '<span class=custom>' + keyword_processor._replacer + '</span>')
+    >>> new_sentence = keyword_processor.replace_keywords('<html><p>This is an important phrase to highlight</p></html>')
+    >>> new_sentence
+    >>> # '<html><p>This is an <span class=custom>important phrase</span> to highlight</p></html>'
 
 Case Sensitive example
     >>> from flashtext import KeywordProcessor

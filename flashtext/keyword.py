@@ -42,6 +42,7 @@ class KeywordProcessor(object):
                 Defaults to False
         """
         self._keyword = '_keyword_'
+        self._replacer = '___#####___' #Can really be any string that is uncommon and easy to match on
         self._white_space_chars = set(['.', '\t', '\n', '\a', ' ', ','])
         try:
             # python 2.x
@@ -557,7 +558,7 @@ class KeywordProcessor(object):
             return keywords_extracted
         return [value[0] for value in keywords_extracted]
 
-    def replace_keywords(self, sentence):
+    def replace_keywords(self, sentence, custom_replacement=False):
         """Searches in the string for all keywords present in corpus.
         Keywords present are replaced by the clean name and a new string is returned.
 
@@ -639,6 +640,8 @@ class KeywordProcessor(object):
                             current_word = current_word_continued
                     current_dict = self.keyword_trie_dict
                     if longest_sequence_found:
+                        if custom_replacement:
+                            longest_sequence_found = longest_sequence_found.replace(self._replacer, current_word)
                         new_sentence += longest_sequence_found + current_white_space
                         current_word = ''
                         current_white_space = ''
