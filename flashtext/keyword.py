@@ -149,7 +149,8 @@ class KeywordProcessor(object):
             if self._keyword not in current_dict:
                 status = True
                 self._terms_in_trie += 1
-            current_dict[self._keyword] = clean_name
+                current_dict[self._keyword] = set()
+            current_dict[self._keyword].add(clean_name)
         return status
 
     def __delitem__(self, keyword):
