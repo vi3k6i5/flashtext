@@ -106,6 +106,23 @@ class TestExtractFuzzy(unittest.TestCase):
         ]
         self.assertEqual(keyword_proc.extract_keywords(sentence, span_info=True, max_cost=1), extracted_keywords)
 
+    def test_intermediate_match(self):
+        """
+        In this test, we have an intermediate fuzzy match with a keyword (the shortest one)
+        We first check that we extract the longest keyword if the max_cost is big enough
+        Then we retry with a smaller max_cost, excluding the longest, and check that the shortest is extracted
+        """
+        keyword_proc = KeywordProcessor()
+        keyword_proc.add_keyword('keyword')
+        keyword_proc.add_keyword('keyword with many words')
+        sentence = "This sentence contains a keywrd with many woords"
+
+        shortest_keyword = ('keyword', 25, 31)
+        longest_keyword = ('keyword with many words', 25, 48)
+
+        self.assertEqual(keyword_proc.extract_keywords(sentence, span_info=True, max_cost=2), [longest_keyword])
+        self.assertEqual(keyword_proc.extract_keywords(sentence, span_info=True, max_cost=1), [shortest_keyword])
+
 
 if __name__ == '__main__':
     unittest.main()
