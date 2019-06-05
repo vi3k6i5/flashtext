@@ -516,16 +516,12 @@ class KeywordProcessor(object):
                                 current_dict_continued = current_dict_continued[inner_char]
                             elif curr_cost > 0:
                                 next_word = self.get_next_word(sentence[idy:])
-                                closest_node, cost, _ = next(
+                                current_dict_continued, cost, _ = next(
                                     self.levensthein(next_word, max_cost=curr_cost, start_node=current_dict_continued),
-                                    ({}, 0, 0),
+                                    (current_dict_continued, 0, 0),
                                 )
                                 curr_cost -= cost
-                                if closest_node:
-                                    current_dict_continued, idy = closest_node, idy + len(next_word) - 1
-                                else:
-                                    break
-                                    #idy += depth - 1 # shift idy if not found, because no exact match if no fuzzy match
+                                idy += len(next_word) - 1
                             else:
                                 break
                             idy += 1
