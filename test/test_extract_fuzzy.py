@@ -39,6 +39,10 @@ class TestExtractFuzzy(unittest.TestCase):
 
 
     def test_correct_keyword_on_addition(self):
+        """
+        Test for simple additions using the levensthein function
+        We ensure we end up on the right node in the when starting from the current node
+        """
         keyword_proc = KeywordProcessor()
         for keyword in (('colour here', 'couleur ici'), ('and heere', 'et ici')):
             keyword_proc.add_keyword(*keyword)
@@ -63,6 +67,10 @@ class TestExtractFuzzy(unittest.TestCase):
 
 
     def test_correct_keyword_on_deletion(self):
+        """
+        Test for simple deletions using the levensthein function
+        We ensure we end up on the right node in the when starting from the current node
+        """
         keyword_proc = KeywordProcessor()
         keyword_proc.add_keyword('skype')
         current_dict = {'y': {'p': {'e': {'_keyword_': 'skype'}}}}
@@ -72,6 +80,24 @@ class TestExtractFuzzy(unittest.TestCase):
             ({}, 0, 0),
         )
 
+        self.assertDictEqual(closest_node, current_dict['y']['p']['e'])
+        self.assertEqual(cost, 1)
+        self.assertEqual(depth, 3)
+
+    def test_correct_keyword_on_substitution(self):
+        """
+        Test for simple substitions using the levensthein function
+        We ensure we end up on the right node in the when starting from the current node
+        """
+        keyword_proc = KeywordProcessor()
+        for keyword in (('skype', 'messenger'),):
+            keyword_proc.add_keyword(*keyword)
+
+        current_dict = keyword_proc.keyword_trie_dict['s']['k']
+        closest_node, cost, depth = next(
+            keyword_proc.levensthein('ope', max_cost=1, start_node=current_dict),
+            ({}, 0, 0)
+            )
         self.assertDictEqual(closest_node, current_dict['y']['p']['e'])
         self.assertEqual(cost, 1)
         self.assertEqual(depth, 3)
@@ -86,10 +112,6 @@ class TestExtractFuzzy(unittest.TestCase):
         keyword_made_of_multiple_words = 'made of multiple words'
         keyword_proc.add_keyword(keyword_made_of_multiple_words)
         sentence = "this sentence contains a keyword maade of multple words"
-
-        #current_dict = keyword_proc.keyword_trie_dict['m']['a']
-        #closest_node, cost, depth = keyword_proc._correct_word('ade of multiple words')
-        #self.assertDictEqual()
 
         extracted_keywords = [(keyword_made_of_multiple_words, 33, 55)]
         self.assertEqual(keyword_proc.extract_keywords(sentence, span_info=True, max_cost=2), extracted_keywords)
