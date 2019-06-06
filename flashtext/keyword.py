@@ -518,10 +518,12 @@ class KeywordProcessor(object):
                                 next_word = self.get_next_word(sentence[idy:])
                                 current_dict_continued, cost, _ = next(
                                     self.levensthein(next_word, max_cost=curr_cost, start_node=current_dict_continued),
-                                    (current_dict_continued, 0, 0),
+                                    ({}, 0, 0),
                                 )
                                 curr_cost -= cost
                                 idy += len(next_word) - 1
+                                if not current_dict_continued:
+                                    break
                             else:
                                 break
                             idy += 1
@@ -548,13 +550,11 @@ class KeywordProcessor(object):
                 current_dict = current_dict[char]
             elif curr_cost > 0:
                 next_word = self.get_next_word(sentence[idx:])
-                closest_node, cost, _ = next(
+                current_dict, cost, _ = next(
                     self.levensthein(next_word, max_cost=curr_cost, start_node=current_dict),
-                    ({}, 0, 0)
+                    (self.keyword_trie_dict, 0, 0)
                 )
-                if closest_node:  # if match found, decrease current cost, set current_dict
-                    curr_cost -= cost
-                    current_dict = closest_node
+                curr_cost -= cost
                 idx += len(next_word) - 1
             else:
                 # we reset current_dict
