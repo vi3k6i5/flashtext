@@ -519,11 +519,9 @@ class KeywordProcessor(object):
                                 current_dict_continued, cost, _ = next(
                                     self.levensthein(next_word, max_cost=curr_cost, start_node=current_dict_continued),
                                     ({}, 0, 0),
-                                )
+                                ) # current_dict_continued to empty dict by default, so next iteration goes to a `break`
                                 curr_cost -= cost
                                 idy += len(next_word) - 1
-                                if not current_dict_continued:
-                                    break
                             else:
                                 break
                             idy += 1
