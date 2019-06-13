@@ -1,10 +1,6 @@
-from collections import defaultdict
 from flashtext import KeywordProcessor
 import logging
 import unittest
-import json
-import re
-import sys
 
 logger = logging.getLogger(__name__)
 
