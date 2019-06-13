@@ -61,6 +61,22 @@ class TestReplaceFuzzy(unittest.TestCase):
         target_sentence = "start with a 1st keyword then add a 2nd keyword"
         self.assertEqual(keyword_proc.replace_keywords(sentence, max_cost=1), target_sentence)
 
+    def test_intermediate_match_then_no_match(self):
+        """
+        In this test, we have an intermediate fuzzy match with a keyword (the shortest one)
+        We check that we get only the shortest keyword when going further into fuzzy match is too
+        expansive to get the longest keyword. We also replace a classic match later in the string,
+        to check that the inner data structures all have a correct state
+        """
+        keyword_proc = KeywordProcessor()
+        keyword_proc.add_keyword('keyword')
+        keyword_proc.add_keyword('keyword with many words')
+        sentence = "This sentence contains a keywrd with many items inside, a keyword at the end"
+        target_sentence = "this sentence contains a keyword with many items inside, a keyword at the end"
+        # FIXME : should work with uppercase in sentence
+
+        self.assertEqual(keyword_proc.replace_keywords(sentence, max_cost=1), target_sentence)
+
 
 if __name__ == '__main__':
     unittest.main()
