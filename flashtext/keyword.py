@@ -548,7 +548,7 @@ class KeywordProcessor(object):
             elif char in current_dict:
                 # we can continue from this char
                 current_dict = current_dict[char]
-            elif (current_dict is not self.keyword_trie_dict) and curr_cost > 0:
+            elif curr_cost > 0:
                 next_word = self.get_next_word(sentence[idx:])
                 current_dict, cost, _ = next(
                     self.levensthein(next_word, max_cost=curr_cost, start_node=current_dict),
@@ -694,15 +694,16 @@ class KeywordProcessor(object):
                 # we can continue from this char
                 current_word += orig_sentence[idx]
                 current_dict = current_dict[char]
-            elif (current_dict is not self.keyword_trie_dict) and curr_cost > 0:
-                next_word = self.get_next_word(sentence[idx:])
+            elif curr_cost > 0:
+                next_orig_word = self.get_next_word(orig_sentence[idx:])
+                next_word = next_orig_word if self.case_sensitive else str.lower(next_orig_word)
                 current_dict, cost, _ = next(
                     self.levensthein(next_word, max_cost=curr_cost, start_node=current_dict),
                     (self.keyword_trie_dict, 0, 0)
                 )
                 idx += len(next_word) - 1
                 curr_cost -= cost
-                current_word += next_word  # just in case of a no match at the end
+                current_word += next_orig_word  # just in case of a no match at the end
             else:
                 current_word += orig_sentence[idx]
                 # we reset current_dict
