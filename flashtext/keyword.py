@@ -499,12 +499,10 @@ class KeywordProcessor(object):
             sentence = sentence.lower()
         idx = 0
         sentences_with_keyword = []
-        seq_start_pos = 0
-        seq_end_pos = 0
-        reset_curr_dict = False
 
         def _helper(sentence, idx):
-            # print(idx)
+            reset_curr_dict = False
+            seq_start_pos = seq_end_pos = idx
             sentence_len = len(sentence)
             curr_dict = self.keyword_trie_dict
             while idx < sentence_len:
@@ -635,7 +633,7 @@ class KeywordProcessor(object):
             sentence = sentence.lower()
         curr_word = ''
         curr_dict = self.keyword_trie_dict
-        current_white_space = ''
+        curr_white_space = ''
         seq_end_pos = 0
         idx = 0
         sentence_len = len(sentence)
@@ -644,7 +642,7 @@ class KeywordProcessor(object):
             curr_word += orig_sentence[idx]
             # when we reach whitespace
             if char not in self.non_word_boundaries:
-                current_white_space = char
+                curr_white_space = char
                 # if end is present in curr_dict
                 if self._keyword in curr_dict or char in curr_dict:
                     # update longest sequence found
@@ -664,10 +662,10 @@ class KeywordProcessor(object):
                         while idy < sentence_len:
                             inner_char = sentence[idy]
                             curr_word_continued += orig_sentence[idy]
-                            if inner_char not in self.non_word_boundaries and
-                            self._keyword in curr_dict_continued:
+                            if inner_char not in self.non_word_boundaries \
+                            and self._keyword in curr_dict_continued:
                                 # update longest sequence found
-                                current_white_space = inner_char
+                                curr_white_space = inner_char
                                 longest_seq_found = curr_dict_continued[
                                                     self._keyword]
                                 seq_end_pos = idy
@@ -682,7 +680,7 @@ class KeywordProcessor(object):
                             # end of sentence reached.
                             if self._keyword in curr_dict_continued:
                                 # update longest sequence found
-                                current_white_space = ''
+                                curr_white_space = ''
                                 longest_seq_found = curr_dict_continued[
                                                     self._keyword]
                                 seq_end_pos = idy
@@ -693,19 +691,19 @@ class KeywordProcessor(object):
                     curr_dict = self.keyword_trie_dict
                     if longest_seq_found:
                         new_sentence.append(longest_seq_found +
-                                            current_white_space)
+                                            curr_white_space)
                         curr_word = ''
-                        current_white_space = ''
+                        curr_white_space = ''
                     else:
                         new_sentence.append(curr_word)
                         curr_word = ''
-                        current_white_space = ''
+                        curr_white_space = ''
                 else:
                     # we reset curr_dict
                     curr_dict = self.keyword_trie_dict
                     new_sentence.append(curr_word)
                     curr_word = ''
-                    current_white_space = ''
+                    curr_white_space = ''
             elif char in curr_dict:
                 # we can continue from this char
                 curr_dict = curr_dict[char]
@@ -723,7 +721,7 @@ class KeywordProcessor(object):
                 idx = idy
                 new_sentence.append(curr_word)
                 curr_word = ''
-                current_white_space = ''
+                curr_white_space = ''
             # if we are end of sentence and have a sequence discovered
             if idx + 1 >= sentence_len:
                 if self._keyword in curr_dict:
