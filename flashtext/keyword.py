@@ -447,7 +447,7 @@ class KeywordProcessor(object):
                     terms_present[key] = sub_values[key]
         return terms_present
 
-    def extract_keywords(self, sentence, span_info=False):
+    def extract_keywords(self, sentence, span_info=False, fetch_sentences=False):
         """Searches in the string for all keywords present in corpus.
         Keywords present are added to a list `keywords_extracted` and returned.
 
@@ -473,89 +473,106 @@ class KeywordProcessor(object):
             return keywords_extracted
         if not self.case_sensitive:
             sentence = sentence.lower()
-        current_dict = self.keyword_trie_dict
+        idx = 0
+        sentences_with_keyword = []
         sequence_start_pos = 0
         sequence_end_pos = 0
         reset_current_dict = False
-        idx = 0
-        sentence_len = len(sentence)
-        while idx < sentence_len:
-            char = sentence[idx]
-            # when we reach a character that might denote word end
-            if char not in self.non_word_boundaries:
 
-                # if end is present in current_dict
-                if self._keyword in current_dict or char in current_dict:
-                    # update longest sequence found
-                    sequence_found = None
-                    longest_sequence_found = None
-                    is_longer_seq_found = False
-                    if self._keyword in current_dict:
-                        sequence_found = current_dict[self._keyword]
-                        longest_sequence_found = current_dict[self._keyword]
-                        sequence_end_pos = idx
+        def _helper(sentence, idx):
+            # print(idx)
+            sentence_len = len(sentence)
+            current_dict = self.keyword_trie_dict
+            while idx < sentence_len:
+                char = sentence[idx]
+                # print(char)
+                # when we reach a character that might denote word end
+                if char not in self.non_word_boundaries:
 
-                    # re look for longest_sequence from this position
-                    if char in current_dict:
-                        current_dict_continued = current_dict[char]
+                    # if end is present in current_dict
+                    if self._keyword in current_dict or char in current_dict:
+                        # update longest sequence found
+                        sequence_found = None
+                        longest_sequence_found = None
+                        is_longer_seq_found = False
+                        if self._keyword in current_dict:
+                            sequence_found = current_dict[self._keyword]
+                            longest_sequence_found = current_dict[self._keyword]
+                            sequence_end_pos = idx
 
-                        idy = idx + 1
-                        while idy < sentence_len:
-                            inner_char = sentence[idy]
-                            if inner_char not in self.non_word_boundaries and self._keyword in current_dict_continued:
-                                # update longest sequence found
-                                longest_sequence_found = current_dict_continued[self._keyword]
-                                sequence_end_pos = idy
-                                is_longer_seq_found = True
-                            if inner_char in current_dict_continued:
-                                current_dict_continued = current_dict_continued[inner_char]
+                        # re look for longest_sequence from this position
+                        if char in current_dict:
+                            current_dict_continued = current_dict[char]
+
+                            idy = idx + 1
+                            while idy < sentence_len:
+                                inner_char = sentence[idy]
+                                if inner_char not in self.non_word_boundaries and self._keyword in current_dict_continued:
+                                    # update longest sequence found
+                                    longest_sequence_found = current_dict_continued[self._keyword]
+                                    sequence_end_pos = idy
+                                    is_longer_seq_found = True
+                                    print("sentence longer")
+                                if inner_char in current_dict_continued:
+                                    current_dict_continued = current_dict_continued[inner_char]
+                                else:
+                                    break
+                                idy += 1
                             else:
-                                break
-                            idy += 1
-                        else:
-                            # end of sentence reached.
-                            if self._keyword in current_dict_continued:
-                                # update longest sequence found
-                                longest_sequence_found = current_dict_continued[self._keyword]
-                                sequence_end_pos = idy
-                                is_longer_seq_found = True
-                        if is_longer_seq_found:
-                            idx = sequence_end_pos
-                    current_dict = self.keyword_trie_dict
-                    if longest_sequence_found:
-                        keywords_extracted.append((longest_sequence_found, sequence_start_pos, idx))
-                    reset_current_dict = True
+                                # end of sentence reached.
+                                if self._keyword in current_dict_continued:
+                                    # update longest sequence found
+                                    longest_sequence_found = current_dict_continued[self._keyword]
+                                    sequence_end_pos = idy
+                                    is_longer_seq_found = True
+                            if is_longer_seq_found:
+                                idx = sequence_end_pos
+                        current_dict = self.keyword_trie_dict
+                        if longest_sequence_found:
+                            keywords_extracted.append((longest_sequence_found, sequence_start_pos, idx))
+                            if fetch_sentences:
+                                # print("longest_sequence_found: ", sentence)
+                                sentences_with_keyword.append(sentence)
+                        reset_current_dict = True
+                    else:
+                        # we reset current_dict
+                        current_dict = self.keyword_trie_dict
+                        reset_current_dict = True
+                elif char in current_dict:
+                    # we can continue from this char
+                    current_dict = current_dict[char]
                 else:
                     # we reset current_dict
                     current_dict = self.keyword_trie_dict
                     reset_current_dict = True
-            elif char in current_dict:
-                # we can continue from this char
-                current_dict = current_dict[char]
-            else:
-                # we reset current_dict
-                current_dict = self.keyword_trie_dict
-                reset_current_dict = True
-                # skip to end of word
-                idy = idx + 1
-                while idy < sentence_len:
-                    char = sentence[idy]
-                    if char not in self.non_word_boundaries:
-                        break
-                    idy += 1
-                idx = idy
-            # if we are end of sentence and have a sequence discovered
-            if idx + 1 >= sentence_len:
-                if self._keyword in current_dict:
-                    sequence_found = current_dict[self._keyword]
-                    keywords_extracted.append((sequence_found, sequence_start_pos, sentence_len))
-            idx += 1
-            if reset_current_dict:
-                reset_current_dict = False
-                sequence_start_pos = idx
-        if span_info:
-            return keywords_extracted
-        return [value[0] for value in keywords_extracted]
+                    # skip to end of word
+                    idy = idx + 1
+                    while idy < sentence_len:
+                        char = sentence[idy]
+                        if char not in self.non_word_boundaries:
+                            break
+                        idy += 1
+                    idx = idy
+                # if we are end of sentence and have a sequence discovered
+                if idx + 1 >= sentence_len:
+                    if self._keyword in current_dict:
+                        sequence_found = current_dict[self._keyword]
+                        keywords_extracted.append((sequence_found, sequence_start_pos, sentence_len))
+                idx += 1
+                if reset_current_dict:
+                    reset_current_dict = False
+                    sequence_start_pos = idx
+        if fetch_sentences:
+            sentences = nltk.sent_tokenize(sentence)  # sentence is paragraph
+            for each_sentence in sentences:
+                idx = 0
+                _helper(each_sentence, idx)
+            return sentences_with_keyword
+        else:
+            _helper(sentence, idx)
+            if span_info:
+                return keywords_extracted
+            return [value[0] for value in keywords_extracted]
 
     def replace_keywords(self, sentence):
         """Searches in the string for all keywords present in corpus.
