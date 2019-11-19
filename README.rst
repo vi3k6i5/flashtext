@@ -134,9 +134,9 @@ Get all keywords in dictionary
     >>> from flashtext import KeywordProcessor
     >>> keyword_processor = KeywordProcessor()
     >>> keyword_processor.add_keyword('j2ee', 'Java')
-    >>> keyword_processor.add_keyword('onGoing', 'rendom')
+    >>> keyword_processor.add_keyword('colour', 'color')
     >>> keyword_processor.get_all_keywords()
-    >>> # output: {'j2ee': 'Java', 'ongoing': 'rendom'}
+    >>> # output: {'colour': 'color', 'j2ee': 'Java'}
 
 For detecting Word Boundary currently any character other than this `\\w` `[A-Za-z0-9_]` is considered a word boundary.
 
