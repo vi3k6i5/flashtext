@@ -8,21 +8,27 @@ import re
 logger = logging.getLogger(__name__)
 
 
-class TestKPTermInKP(unittest.TestCase):
+class TestKPDictionaryLikeFeatures(unittest.TestCase):
     def setUp(self):
         logger.info("Starting...")
 
     def tearDown(self):
         logger.info("Ending.")
 
-    def test_list_loading(self):
+    def test_term_in_dictionary(self):
         keyword_processor = KeywordProcessor()
         keyword_processor.add_keyword('j2ee', 'Java')
-        keyword_processor.add_keyword('onGoing', 'rendom')
-        keyword_processor.get_all_keywords()
-        self.assertEqual(keyword_processor.get_all_keywords(),
-                         {'j2ee': 'Java', 'ongoing': 'rendom'},
-                         "get_all_keywords didn't match expected results.")
+        keyword_processor.add_keyword('colour', 'color')
+        keyword_processor.get_keyword('j2ee')
+        self.assertEqual(keyword_processor.get_keyword('j2ee'),
+                         'Java',
+                         "get_keyword didn't return expected Keyword")
+        self.assertEqual(keyword_processor['colour'],
+                         'color',
+                         "get_keyword didn't return expected Keyword")
+        self.assertEqual(keyword_processor['Test'],
+                         None,
+                         "get_keyword didn't return expected Keyword")
 
 
 if __name__ == '__main__':
