@@ -66,12 +66,12 @@ Case Sensitive example
 
 Span of keywords extracted
     >>> from flashtext import KeywordProcessor
-    >>> keyword_processor = KeywordProcessor(case_sensitive=True)
+    >>> keyword_processor = KeywordProcessor()
     >>> keyword_processor.add_keyword('Big Apple', 'New York')
     >>> keyword_processor.add_keyword('Bay Area')
     >>> keywords_found = keyword_processor.extract_keywords('I love big Apple and Bay Area.', span_info=True)
     >>> keywords_found
-    >>> # [('Bay Area', 21, 29)]
+    >>> # [('New York', 7, 16), ('Bay Area', 21, 29)]
 
 No clean name for Keywords
     >>> from flashtext import KeywordProcessor
