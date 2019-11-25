@@ -45,10 +45,10 @@ class KeywordProcessor(object):
         self._white_space_chars = set(['.', '\t', '\n', '\a', ' ', ','])
         try:
             # python 2.x
-            self.non_word_boundaries = set(string.digits + string.letters + '_')
+            self.non_word_boundaries = set('_')
         except AttributeError:
             # python 3.x
-            self.non_word_boundaries = set(string.digits + string.ascii_letters + '_')
+            self.non_word_boundaries = set('_')
         self.keyword_trie_dict = dict()
         self.case_sensitive = case_sensitive
         self._terms_in_trie = 0
