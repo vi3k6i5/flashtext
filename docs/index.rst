@@ -73,6 +73,15 @@ Span of keywords extracted
     >>> keywords_found
     >>> # [('New York', 7, 16), ('Bay Area', 21, 29)]
 
+Get Extra information with keywords extracted
+    >>> from flashtext import KeywordProcessor
+    >>> kp = KeywordProcessor()
+    >>> kp.add_keyword('Taj Mahal', ('Monument', 'Taj Mahal'))
+    >>> kp.add_keyword('Delhi', ('Location', 'Delhi'))
+    >>> kp.extract_keywords('Taj Mahal is in Delhi.')
+    >>> # [('Monument', 'Taj Mahal'), ('Location', 'Delhi')]
+    >>> # NOTE: replace_keywords feature won't work with this.
+
 No clean name for Keywords
     >>> from flashtext import KeywordProcessor
     >>> keyword_processor = KeywordProcessor()
