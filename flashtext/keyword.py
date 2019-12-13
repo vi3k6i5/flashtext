@@ -35,7 +35,7 @@ class KeywordProcessor(object):
         * Idea came from this `Stack Overflow Question <https://stackoverflow.com/questions/44178449/regex-replace-is-taking-time-for-millions-of-documents-how-to-make-it-faster>`_.
     """
 
-    def __init__(self, case_sensitive=False):
+    def __init__(self, case_sensitive=False, do_word_boundaries=False):
         """
         Args:
             case_sensitive (boolean): Keyword search should be case sensitive set or not.
@@ -43,12 +43,14 @@ class KeywordProcessor(object):
         """
         self._keyword = '_keyword_'
         self._white_space_chars = set(['.', '\t', '\n', '\a', ' ', ','])
+        self.do_word_boundaries = do_word_boundaries
         try:
             # python 2.x
             self.non_word_boundaries = set(string.digits + string.letters + '_')
         except AttributeError:
             # python 3.x
             self.non_word_boundaries = set(string.digits + string.ascii_letters + '_')
+        self.word_boundaries = self._white_space_chars.copy()
         self.keyword_trie_dict = dict()
         self.case_sensitive = case_sensitive
         self._terms_in_trie = 0
@@ -202,6 +204,14 @@ class KeywordProcessor(object):
         """
         raise NotImplementedError("Please use get_all_keywords() instead")
 
+    def is_word_boundaries(self, char):
+        if not self.do_word_boundaries and char not in self.non_word_boundaries:
+            return True
+        elif self.do_word_boundaries and char in self.word_boundaries:
+            return True
+
+        return False
+
     def set_non_word_boundaries(self, non_word_boundaries):
         """set of characters that will be considered as part of word.
 
@@ -212,6 +222,19 @@ class KeywordProcessor(object):
         """
         self.non_word_boundaries = non_word_boundaries
 
+    def set_word_boundaries(self, word_boundaries):
+        """set of characters that will be considered as part of word.
+
+        Args:
+            word_boundaries (set(str)):
+                Set of characters that will be considered as part of word.
+
+        """
+        if not self.do_word_boundaries:
+            raise ValueError('do_word_boundaries is False')
+
+        self.word_boundaries = word_boundaries
+
     def add_non_word_boundary(self, character):
         """add a character that will be considered as part of word.
 
@@ -221,6 +244,18 @@ class KeywordProcessor(object):
 
         """
         self.non_word_boundaries.add(character)
+
+    def add_word_boundary(self, character):
+        """add a character that will be considered as part of word.
+
+        Args:
+            character (char):
+                Character that will be considered as part of word.
+
+        """
+        if not self.do_word_boundaries:
+            raise ValueError('do_word_boundaries is False')
+        self.word_boundaries.add(character)
 
     def add_keyword(self, keyword, clean_name=None):
         """To add one or more keywords to the dictionary
@@ -482,7 +517,7 @@ class KeywordProcessor(object):
         while idx < sentence_len:
             char = sentence[idx]
             # when we reach a character that might denote word end
-            if char not in self.non_word_boundaries:
+            if self.is_word_boundaries(char):
 
                 # if end is present in current_dict
                 if self._keyword in current_dict or char in current_dict:
@@ -502,7 +537,7 @@ class KeywordProcessor(object):
                         idy = idx + 1
                         while idy < sentence_len:
                             inner_char = sentence[idy]
-                            if inner_char not in self.non_word_boundaries and self._keyword in current_dict_continued:
+                            if self.is_word_boundaries(inner_char) and self._keyword in current_dict_continued:
                                 # update longest sequence found
                                 longest_sequence_found = current_dict_continued[self._keyword]
                                 sequence_end_pos = idy
@@ -540,7 +575,7 @@ class KeywordProcessor(object):
                 idy = idx + 1
                 while idy < sentence_len:
                     char = sentence[idy]
-                    if char not in self.non_word_boundaries:
+                    if self.is_word_boundaries(char):
                         break
                     idy += 1
                 idx = idy
@@ -594,7 +629,7 @@ class KeywordProcessor(object):
             char = sentence[idx]
             current_word += orig_sentence[idx]
             # when we reach whitespace
-            if char not in self.non_word_boundaries:
+            if self.is_word_boundaries(char):
                 current_white_space = char
                 # if end is present in current_dict
                 if self._keyword in current_dict or char in current_dict:
@@ -615,7 +650,7 @@ class KeywordProcessor(object):
                         while idy < sentence_len:
                             inner_char = sentence[idy]
                             current_word_continued += orig_sentence[idy]
-                            if inner_char not in self.non_word_boundaries and self._keyword in current_dict_continued:
+                            if self.is_word_boundaries(inner_char) and self._keyword in current_dict_continued:
                                 # update longest sequence found
                                 current_white_space = inner_char
                                 longest_sequence_found = current_dict_continued[self._keyword]
@@ -663,7 +698,7 @@ class KeywordProcessor(object):
                 while idy < sentence_len:
                     char = sentence[idy]
                     current_word += orig_sentence[idy]
-                    if char not in self.non_word_boundaries:
+                    if self.is_word_boundaries(char):
                         break
                     idy += 1
                 idx = idy
