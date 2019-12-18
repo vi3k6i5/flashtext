@@ -4,7 +4,7 @@
         "keyword_dict": {
             "Python": ["python"]
         },
-        "explaination": "Keyword at the end of the sentence.",
+        "explanation": "Keyword at the end of the sentence.",
         "keywords": ["Python"],
         "keywords_case_sensitive": ["Python"]
     },
@@ -13,7 +13,7 @@
         "keyword_dict": {
             "Python": ["python"]
         },
-        "explaination": "Keyword at the beginning of the sentence.",
+        "explanation": "Keyword at the beginning of the sentence.",
         "keywords": ["Python"],
         "keywords_case_sensitive": ["Python"]
     },
@@ -22,7 +22,7 @@
         "keyword_dict": {
             "Python": ["python"]
         },
-        "explaination": "Keyword before the end of the sentence.",
+        "explanation": "Keyword before the end of the sentence.",
         "keywords": ["Python"],
         "keywords_case_sensitive": ["Python"]
     },
@@ -32,7 +32,7 @@
             "Python": ["python"],
             "Java": ["java"]
         },
-        "explaination": "Multiple keywords in the end of the sentence.",
+        "explanation": "Multiple keywords in the end of the sentence.",
         "keywords": ["Python", "Java"],
         "keywords_case_sensitive": ["Python", "Java"]
     },
@@ -42,7 +42,7 @@
             "Python": ["python"],
             "Java": ["java"]
         },
-        "explaination": "Multiple keywords in the sentence with other word in between.",
+        "explanation": "Multiple keywords in the sentence with other word in between.",
         "keywords": ["Python", "Java"],
         "keywords_case_sensitive": ["Python", "Java"]
     },
@@ -51,7 +51,7 @@
         "keyword_dict": {
             "Python": ["python"]
         },
-        "explaination": "Single keyword in the sentence.",
+        "explanation": "Single keyword in the sentence.",
         "keywords": ["Python"],
         "keywords_case_sensitive": ["Python"]
     },
@@ -60,7 +60,7 @@
         "keyword_dict": {
             "Python": ["python"]
         },
-        "explaination": "Single keyword in the sentence with space prefix.",
+        "explanation": "Single keyword in the sentence with space prefix.",
         "keywords": ["Python"],
         "keywords_case_sensitive": ["Python"]
     },
@@ -69,7 +69,7 @@
         "keyword_dict": {
             "R": ["r"]
         },
-        "explaination": "Single char keyword at the end of the sentence.",
+        "explanation": "Single char keyword at the end of the sentence.",
         "keywords": ["R"],
         "keywords_case_sensitive": ["R"]
     },
@@ -78,7 +78,7 @@
         "keyword_dict": {
             "R": ["r"]
         },
-        "explaination": "Single char keyword at the beginning of the sentence.",
+        "explanation": "Single char keyword at the beginning of the sentence.",
         "keywords": ["R"],
         "keywords_case_sensitive": ["R"]
     },
@@ -87,7 +87,7 @@
         "keyword_dict": {
             "R": ["r"]
         },
-        "explaination": "Single char keyword before the end of the sentence.",
+        "explanation": "Single char keyword before the end of the sentence.",
         "keywords": ["R"],
         "keywords_case_sensitive": []
     },
@@ -97,7 +97,7 @@
             "R": ["r"],
             "Java": ["java"]
         },
-        "explaination": "Multiple keywords in the end of the sentence.",
+        "explanation": "Multiple keywords in the end of the sentence.",
         "keywords": ["R", "Java"],
         "keywords_case_sensitive": ["Java"]
     },
@@ -107,7 +107,7 @@
             "R": ["R"],
             "Java": ["java"]
         },
-        "explaination": "Multiple keywords in the sentence with other word in between.",
+        "explanation": "Multiple keywords in the sentence with other word in between.",
         "keywords": ["R", "Java"],
         "keywords_case_sensitive": ["R", "Java"]
     },
@@ -116,7 +116,7 @@
         "keyword_dict": {
             "R": ["r"]
         },
-        "explaination": "Single character keyword in the sentence.",
+        "explanation": "Single character keyword in the sentence.",
         "keywords": ["R"],
         "keywords_case_sensitive": []
     },
@@ -125,7 +125,7 @@
         "keyword_dict": {
             "R": ["R"]
         },
-        "explaination": "Single character keyword in the sentence with space prefix.",
+        "explanation": "Single character keyword in the sentence with space prefix.",
         "keywords": ["R"],
         "keywords_case_sensitive": ["R"]
     },
@@ -134,7 +134,7 @@
         "keyword_dict": {
             "Distributed Super Computing": ["distributed super computing"]
         },
-        "explaination": "Multi word Keyword at the end of the sentence.",
+        "explanation": "Multi word Keyword at the end of the sentence.",
         "keywords": ["Distributed Super Computing"],
         "keywords_case_sensitive": ["Distributed Super Computing"]
     },
@@ -143,7 +143,7 @@
         "keyword_dict": {
             "Distributed Super Computing": ["distributed super computing"]
         },
-        "explaination": "Multi word Keyword at the beginning of the sentence.",
+        "explanation": "Multi word Keyword at the beginning of the sentence.",
         "keywords": ["Distributed Super Computing"],
         "keywords_case_sensitive": ["Distributed Super Computing"]
     },
@@ -152,7 +152,7 @@
         "keyword_dict": {
             "Distributed Super Computing": ["distributed super computing"]
         },
-        "explaination": "Multi word Keyword before the end of the sentence.",
+        "explanation": "Multi word Keyword before the end of the sentence.",
         "keywords": ["Distributed Super Computing"],
         "keywords_case_sensitive": ["Distributed Super Computing"]
     },
@@ -162,7 +162,7 @@
             "Distributed Super Computing": ["distributed super computing"],
             "Java": ["java"]
         },
-        "explaination": "Multi word Keyword at the end of the sentence.",
+        "explanation": "Multi word Keyword at the end of the sentence.",
         "keywords": ["Distributed Super Computing", "Java"],
         "keywords_case_sensitive": ["Distributed Super Computing", "Java"]
     },
@@ -172,7 +172,7 @@
             "Distributed Super Computing": ["distributed super computing"],
             "Java": ["java programing"]
         },
-        "explaination": "Multiple Multi word Keyword at the end of the sentence.",
+        "explanation": "Multiple Multi word Keyword at the end of the sentence.",
         "keywords": ["Distributed Super Computing", "Java"],
         "keywords_case_sensitive": ["Distributed Super Computing", "Java"]
     },
@@ -182,7 +182,7 @@
             "Distributed Super Computing": ["distributed super computing"],
             "Java": ["java"]
         },
-        "explaination": "Multiple keywords in the sentence with other word in between.",
+        "explanation": "Multiple keywords in the sentence with other word in between.",
         "keywords": ["Distributed Super Computing", "Java"],
         "keywords_case_sensitive": ["Distributed Super Computing", "Java"]
     },
@@ -191,7 +191,7 @@
         "keyword_dict": {
             "Distributed Super Computing": ["distributed super computing"]
         },
-        "explaination": "Single Multi word Keyword in the sentence.",
+        "explanation": "Single Multi word Keyword in the sentence.",
         "keywords": ["Distributed Super Computing"],
         "keywords_case_sensitive": ["Distributed Super Computing"]
     },
@@ -200,7 +200,7 @@
         "keyword_dict": {
             "Distributed Super Computing": ["distributed super computing"]
         },
-        "explaination": "Single Multi word Keyword in the sentence with space prefix.",
+        "explanation": "Single Multi word Keyword in the sentence with space prefix.",
         "keywords": ["Distributed Super Computing"],
         "keywords_case_sensitive": ["Distributed Super Computing"]
     },
@@ -209,7 +209,7 @@
         "keyword_dict": {
             "Distributed Super Computing": ["distributed super computing"]
         },
-        "explaination": "Multi word Keyword twice",
+        "explanation": "Multi word Keyword twice",
         "keywords": ["Distributed Super Computing", "Distributed Super Computing"],
         "keywords_case_sensitive": ["Distributed Super Computing", "Distributed Super Computing"]
     },
@@ -218,7 +218,7 @@
         "keyword_dict": {
             "Distributed Super Computing": ["distributed super computing"]
         },
-        "explaination": "Multi word Keyword partial then complete.",
+        "explanation": "Multi word Keyword partial then complete.",
         "keywords": ["Distributed Super Computing"],
         "keywords_case_sensitive": ["Distributed Super Computing"]
     },
@@ -228,7 +228,7 @@
             "Distributed Super Computing": ["distributed super computing"],
             "Java": ["java"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["Distributed Super Computing", "Java"],
         "keywords_case_sensitive": ["Distributed Super Computing", "Java"]
     },
@@ -238,7 +238,7 @@
             "Distributed Super Computing": ["distributed super computing"],
             "Distributed Super Computing Institute": ["distributed super computing institute"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["Distributed Super Computing Institute"],
         "keywords_case_sensitive": ["Distributed Super Computing Institute"]
     },
@@ -248,7 +248,7 @@
             "Distributed Super Computing": ["distributed super computing"],
             "Distributed Super Computing Institute": ["distributed super computing institute"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["Distributed Super Computing"],
         "keywords_case_sensitive": ["Distributed Super Computing"]
     },
@@ -259,7 +259,7 @@
             "Distributed Super Computing Institute": ["distributed super computing institute"],
             "Java": ["java"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["Distributed Super Computing", "Java"],
         "keywords_case_sensitive": ["Distributed Super Computing", "Java"]
     },
@@ -270,7 +270,7 @@
             "Distributed Super Computing Institute": ["distributed super computing institute"],
             "Java": ["java"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["Distributed Super Computing Institute", "Java"],
         "keywords_case_sensitive": ["Distributed Super Computing Institute", "Java"]
     },
@@ -281,7 +281,7 @@
             "Distributed Super Computing Institute": ["distributed super computing institute"],
             "Java": ["java"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["Distributed Super Computing Institute", "Java"],
         "keywords_case_sensitive": ["Distributed Super Computing Institute", "Java"]
     },
@@ -292,7 +292,7 @@
             "Distributed Super Computing Institute": ["distributed super computing institute"],
             "R": ["r"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["Distributed Super Computing", "R"],
         "keywords_case_sensitive": ["Distributed Super Computing", "R"]
     },
@@ -303,7 +303,7 @@
             "Distributed Super Computing Institute": ["distributed super computing institute"],
             "R": ["r"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["Distributed Super Computing Institute", "R"],
         "keywords_case_sensitive": ["Distributed Super Computing Institute", "R"]
     },
@@ -314,7 +314,7 @@
             "Distributed Super Computing Institute": ["distributed super computing institute"],
             "R": ["r"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["Distributed Super Computing Institute", "R"],
         "keywords_case_sensitive": ["Distributed Super Computing Institute", "R"]
     },
@@ -324,7 +324,7 @@
             "Distributed Programing": ["distributed programing"],
             "Pronoun Game": ["pronoun game"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["Pronoun Game"],
         "keywords_case_sensitive": ["Pronoun Game"]
     },
@@ -334,7 +334,7 @@
             "Distributed Super Computer": ["distributed super computer"],
             "Computer Game": ["computer game"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["Distributed Super Computer"],
         "keywords_case_sensitive": ["Distributed Super Computer"]
     },
@@ -344,7 +344,7 @@
             "Distributed Super Company": ["distributed super company"],
             "Computer Game": ["computer game"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["Computer Game"],
         "keywords_case_sensitive": ["Computer Game"]
     },
@@ -355,7 +355,7 @@
             "Super Computer": ["super computer"],
             "Computer Game": ["computer game"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["Super Computer"],
         "keywords_case_sensitive": ["Super Computer"]
     },
@@ -366,7 +366,7 @@
             "Super Computer": ["super computer"],
             "Computer Game": ["computer game"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": [],
         "keywords_case_sensitive": []
     },
@@ -376,7 +376,7 @@
             "Computer Game": ["computer game"],
             "Computer Game Development": ["computer game development"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["Computer Game Development"],
         "keywords_case_sensitive": ["Computer Game Development"]
     },
@@ -386,7 +386,7 @@
             "Computer Gaming": ["computer gaming"],
             "Computer Game Development": ["computer game development"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["Computer Game Development"],
         "keywords_case_sensitive": ["Computer Game Development"]
     },
@@ -395,7 +395,7 @@
         "keyword_dict": {
             ".NET": [".net"]
         },
-        "explaination": "keyword with special character",
+        "explanation": "keyword with special character",
         "keywords": [".NET"],
         "keywords_case_sensitive": [".NET"]
     },
@@ -404,7 +404,7 @@
         "keyword_dict": {
             "Cpp": ["c++"]
         },
-        "explaination": "keyword with special character",
+        "explanation": "keyword with special character",
         "keywords": ["Cpp"],
         "keywords_case_sensitive": ["Cpp"]
     },
@@ -413,7 +413,7 @@
         "keyword_dict": {
             "Python": ["python."]
         },
-        "explaination": "Ending with special character",
+        "explanation": "Ending with special character",
         "keywords": ["Python"],
         "keywords_case_sensitive": ["Python"]
     },
@@ -422,7 +422,7 @@
         "keyword_dict": {
             "Python": ["python"]
         },
-        "explaination": "Ending with special character",
+        "explanation": "Ending with special character",
         "keywords": ["Python"],
         "keywords_case_sensitive": ["Python"]
     },
@@ -431,7 +431,7 @@
         "keyword_dict": {
             "Python": ["python prog"]
         },
-        "explaination": "Negative test case",
+        "explanation": "Negative test case",
         "keywords": [],
         "keywords_case_sensitive": []
     },
@@ -443,7 +443,7 @@
             "Institute": ["institute"],
             "Distributed Super Computing": ["distributed super computing"]
         },
-        "explaination": "Negative test case",
+        "explanation": "Negative test case",
         "keywords": ["Distributed Super Computing", "Institute", "Java"],
         "keywords_case_sensitive": ["Distributed Super Computing", "Institute", "Java"]
     },
@@ -454,7 +454,7 @@
             "XBP1s": ["XBP1s"],
             "UPR": ["upr"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["IRE1", "XBP1s", "UPR"],
         "keywords_case_sensitive": ["IRE1", "XBP1s"]
     },
@@ -464,7 +464,7 @@
             "spring framework": ["spring", "spring framework"],
             "framework": ["framework"]
         },
-        "explaination": "",
+        "explanation": "",
         "keywords": ["spring framework"],
         "keywords_case_sensitive": ["spring framework"]
     }
