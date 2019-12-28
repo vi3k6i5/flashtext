@@ -524,6 +524,7 @@ class KeywordProcessor(object):
                     current_dict = self.keyword_trie_dict
                     if longest_sequence_found:
                         keywords_extracted.append((longest_sequence_found, sequence_start_pos, idx))
+                        idx -= 1
                     reset_current_dict = True
                 else:
                     # we reset current_dict
