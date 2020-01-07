@@ -76,6 +76,13 @@ class TestReplaceFuzzy(unittest.TestCase):
 
         self.assertEqual(keyword_proc.replace_keywords(sentence, max_cost=1), target_sentence)
 
+    def test_special_symbol(self):
+        keyword_proc = KeywordProcessor()
+        keyword_proc.add_keyword('No. of Colors', 'Número de colores')
+        sentence = "No. of colours: 10"
+        target_sentence = "Número de colores: 10"
+        self.assertEqual(keyword_proc.replace_keywords(sentence, max_cost=2), target_sentence)
+
 
 if __name__ == '__main__':
     unittest.main()

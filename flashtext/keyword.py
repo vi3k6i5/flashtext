@@ -789,6 +789,7 @@ class KeywordProcessor(object):
     def _levenshtein_rec(self, char, node, word, rows, max_cost, depth=0):
         n_columns = len(word) + 1
         new_rows = [rows[0] + 1]
+        cost = 0
 
         for col in range(1, n_columns):
             insert_cost = new_rows[col - 1] + 1
@@ -797,10 +798,10 @@ class KeywordProcessor(object):
             cost = min((insert_cost, delete_cost, replace_cost))
             new_rows.append(cost)
 
-        stop_crit = node.keys() & (self._white_space_chars | {self._keyword})
+        stop_crit = isinstance(node, dict) and node.keys() & (self._white_space_chars | {self._keyword})
         if new_rows[-1] <= max_cost and stop_crit:
             yield node, cost, depth
 
-        elif min(new_rows) <= max_cost:
+        elif isinstance(node, dict) and min(new_rows) <= max_cost:
             for new_char, new_node in node.items():
                 yield from self._levenshtein_rec(new_char, new_node, word, new_rows, max_cost, depth=depth + 1)
