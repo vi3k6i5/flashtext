@@ -1,5 +1,6 @@
 import os
 import string
+import io
 
 
 class KeywordProcessor(object):
@@ -283,7 +284,7 @@ class KeywordProcessor(object):
         """
         return self.__getitem__(word)
 
-    def add_keyword_from_file(self, keyword_file):
+    def add_keyword_from_file(self, keyword_file, encoding="utf-8"):
         """To add keywords from a file
 
         Args:
@@ -311,7 +312,7 @@ class KeywordProcessor(object):
         """
         if not os.path.isfile(keyword_file):
             raise IOError("Invalid file path {}".format(keyword_file))
-        with open(keyword_file)as f:
+        with io.open(keyword_file, encoding=encoding) as f:
             for line in f:
                 if '=>' in line:
                     keyword, clean_name = line.split('=>')
