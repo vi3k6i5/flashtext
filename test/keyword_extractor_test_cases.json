@@ -9,6 +9,15 @@
         "keywords_case_sensitive": ["Python"]
     },
     {
+        "sentence": "I like python",
+        "keyword_dict": {
+            "Pythonizer": ["pythonizer"]
+        },
+        "explanation": "Incomplete keyword at the end of the sentence.",
+        "keywords": [],
+        "keywords_case_sensitive": []
+    },
+    {
         "sentence": "python I like",
         "keyword_dict": {
             "Python": ["python"]
