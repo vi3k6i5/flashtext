@@ -671,5 +671,7 @@ class KeywordProcessor(object):
                 if self._keyword in current_dict:
                     sequence_found = current_dict[self._keyword]
                     new_sentence += sequence_found
+                else:
+                    new_sentence += current_word
             idx += 1
         return new_sentence
