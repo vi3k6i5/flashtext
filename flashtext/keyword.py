@@ -289,6 +289,7 @@ class KeywordProcessor(object):
 
         Args:
             keyword_file : path to keywords file
+            encoding : specify the encoding of the file
 
         Examples:
             keywords file format can be like:
