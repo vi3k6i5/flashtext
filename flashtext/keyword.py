@@ -174,8 +174,12 @@ class KeywordProcessor(object):
                 if letter in current_dict:
                     character_trie_list.append((letter, current_dict))
                     current_dict = current_dict[letter]
+                else:
+                    # if character is not found, break out of the loop
+                    current_dict = None
+                    break
             # remove the characters from trie dict if there are no other keywords with them
-            if self._keyword in current_dict:
+            if current_dict and self._keyword in current_dict:
                 # we found a complete match for input keyword.
                 character_trie_list.append((self._keyword, current_dict))
                 character_trie_list.reverse()
