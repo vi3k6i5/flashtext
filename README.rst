@@ -252,3 +252,7 @@ License
 -------
 
 The project is licensed under the MIT license.
+
+Adopters
+--------
+`NLPre <https://github.com/NIHOPA/NLPre>`_: Natural Language Preprocessing
