@@ -476,5 +476,15 @@
         "explanation": "",
         "keywords": ["spring framework"],
         "keywords_case_sensitive": ["spring framework"]
+    },
+    {
+        "sentence": "İ love Big Apple and Bay Area.",
+        "keyword_dict": {
+            "İ love": ["İ love"],
+            "Big Apple": ["Big Apple"]
+        },
+        "explanation": "Lowering keywords per character for correct span_info",
+        "keywords": ["İ love", "Big Apple"],
+        "keywords_case_sensitive": ["İ love", "Big Apple"]
     }
 ]

@@ -19,7 +19,6 @@ class TestKPExtractorSpan(unittest.TestCase):
         """For each of the test case initialize a new KeywordProcessor.
         Add the keywords the test case to KeywordProcessor.
         Extract keywords and check if they match the expected result for the test case.
-
         """
         for test_id, test_case in enumerate(self.test_cases):
             keyword_processor = KeywordProcessor()
@@ -27,16 +26,15 @@ class TestKPExtractorSpan(unittest.TestCase):
                 keyword_processor.add_keywords_from_list(test_case['keyword_dict'][key])
             keywords_extracted = keyword_processor.extract_keywords(test_case['sentence'], span_info=True)
             for kwd in keywords_extracted:
-                # returned keyword lowered should match the sapn from sentence
+                # returned keyword lowered should match the span from sentence
                 self.assertEqual(
-                    kwd[0].lower(), test_case['sentence'].lower()[kwd[1]:kwd[2]],
+                    kwd[0].lower(), test_case['sentence'][kwd[1]:kwd[2]].lower(),
                     "keywords span don't match the expected results for test case: {}".format(test_id))
 
     def test_extract_keywords_case_sensitive(self):
         """For each of the test case initialize a new KeywordProcessor.
         Add the keywords the test case to KeywordProcessor.
         Extract keywords and check if they match the expected result for the test case.
-
         """
         for test_id, test_case in enumerate(self.test_cases):
             keyword_processor = KeywordProcessor(case_sensitive=True)
