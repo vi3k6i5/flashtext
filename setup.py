@@ -16,7 +16,7 @@ class PyTest(Command):
         raise SystemExit(errno)
 
 name = 'flashtext'
-version = '2.7'
+version = '3.0'
 
 cmdclass = {'test': PyTest}
 
@@ -29,9 +29,9 @@ except ImportError:
 setup(
     name=name,
     version=version,
-    url='http://github.com/vi3k6i5/flashtext',
-    author='Vikash Singh',
-    author_email='vikash.duliajan@gmail.com',
+    url='http://github.com/redbubble/flashtext',
+    author='DataScience',
+    author_email='curiosity@redbubble.com',
     description='Extract/Replaces keywords in sentences.',
     long_description=open('README.rst').read(),
     packages=['flashtext'],
@@ -40,9 +40,7 @@ setup(
     cmdclass=cmdclass,
     classifiers=[
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Operating System :: OS Independent',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
