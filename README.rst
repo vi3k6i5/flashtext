@@ -30,7 +30,8 @@ Installation
 ------------
 ::
 
-    $ pip install flashtext
+    $ pip install git+https://github.com/redbubble/flashtext@v3.0
+
 
 
 API doc
