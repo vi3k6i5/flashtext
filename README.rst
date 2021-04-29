@@ -168,6 +168,27 @@ To set or add characters as part of word characters
     >>> print(keyword_processor.extract_keywords('I love Big Apple/Bay Area.'))
     >>> # []
 
+Common Phone Number Regex example
+    >>> from flashtext import KeywordProcessor
+    >>> keyword_processor = KeywordProcessor()
+    >>> string = 'My phone number is (123)4567890'
+    >>> keyword_processor.add_keyword('(123)4567890', '(123)456-7890')
+    >>> number_found = keyword_processor.extract_keywords(string)
+    >>> number_found
+    >>> # ['(123)456-7890']
+    
+    >>> replace_number = keyword_processor.replace_keywords(string)
+    >>> replace_number
+    >>> # 'My phone number is (123)456-7890'
+    
+    >>> phone_dictionary = {
+    '(123)456-7890': ['123-456-7890', '123-4567890', '123456-7890', '(123)4567890'],
+    }
+    
+    keyword_processor.add_keywords_from_dict(phone_dictionary)
+    replace_numbers = keyword_processor.replace_keywords("(123)4567890, 123456-7890, 123-4567890")
+    >>> replace_numbers
+    >>> # '(123)456-7890, (123)456-7890, (123)456-7890'
 
 Test
 ----
