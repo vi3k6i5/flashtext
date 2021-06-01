@@ -447,12 +447,14 @@ class KeywordProcessor(object):
                     terms_present[key] = sub_values[key]
         return terms_present
 
-    def extract_keywords(self, sentence, span_info=False):
+    def extract_keywords(self, sentence, span_info=False, max_cost=0):
         """Searches in the string for all keywords present in corpus.
         Keywords present are added to a list `keywords_extracted` and returned.
 
         Args:
             sentence (str): Line of text where we will search for keywords
+            span_info (bool): True if you need to span the boundaries where the extraction has been performed
+            max_cost (int): maximum levensthein distance to accept when extracting keywords
 
         Returns:
             keywords_extracted (list(str)): List of terms/keywords found in sentence that match our corpus
@@ -465,7 +467,9 @@ class KeywordProcessor(object):
             >>> keywords_found = keyword_processor.extract_keywords('I love Big Apple and Bay Area.')
             >>> keywords_found
             >>> ['New York', 'Bay Area']
-
+            >>> keywords_found = keyword_processor.extract_keywords('I love Big Aple and Baay Area.', max_cost=1)
+            >>> keywords_found
+            >>> ['New York', 'Bay Area']
         """
         keywords_extracted = []
         if not sentence:
@@ -479,6 +483,7 @@ class KeywordProcessor(object):
         reset_current_dict = False
         idx = 0
         sentence_len = len(sentence)
+        curr_cost = max_cost
         while idx < sentence_len:
             char = sentence[idx]
             # when we reach a character that might denote word end
@@ -509,6 +514,18 @@ class KeywordProcessor(object):
                                 is_longer_seq_found = True
                             if inner_char in current_dict_continued:
                                 current_dict_continued = current_dict_continued[inner_char]
+                            elif curr_cost > 0:
+                                next_word = self.get_next_word(sentence[idy:])
+                                closest_node, cost, depth = next(
+                                    self.levensthein(next_word, max_cost=curr_cost, start_node=current_dict_continued),
+                                    ({}, 0, 0),
+                                )
+                                curr_cost -= cost
+                                if closest_node:
+                                    current_dict_continued, idy = closest_node, idy + len(next_word) - 1
+                                else:
+                                    break
+                                    #idy += depth - 1 # shift idy if not found, because no exact match if no fuzzy match
                             else:
                                 break
                             idy += 1
@@ -524,6 +541,7 @@ class KeywordProcessor(object):
                     current_dict = self.keyword_trie_dict
                     if longest_sequence_found:
                         keywords_extracted.append((longest_sequence_found, sequence_start_pos, idx))
+                        curr_cost = max_cost
                     reset_current_dict = True
                 else:
                     # we reset current_dict
@@ -532,6 +550,16 @@ class KeywordProcessor(object):
             elif char in current_dict:
                 # we can continue from this char
                 current_dict = current_dict[char]
+            elif current_dict is not self.keyword_trie_dict and curr_cost:
+                next_word = self.get_next_word(sentence[idx:])
+                closest_node, cost, depth = next(
+                    self.levensthein(next_word, max_cost=curr_cost, start_node=current_dict),
+                    ({}, 0, 0)
+                )
+                if closest_node:  # if match found, decrease current cost, set current_dict
+                    curr_cost -= cost
+                    current_dict = closest_node
+                idx += len(next_word) - 1
             else:
                 # we reset current_dict
                 current_dict = self.keyword_trie_dict
@@ -679,3 +707,66 @@ class KeywordProcessor(object):
                     new_sentence.append(current_word)
             idx += 1
         return "".join(new_sentence)
+
+    def get_next_word(self, sentence):
+        """
+        Retrieve the next word in the sequence
+        Iterate in the string until finding the first char not in non_word_boundaries
+
+        Args:
+            sentence (str): Line of text where we will look for the next word
+
+        Returns:
+            next_word (str): The next word in the sentence
+        Examples:
+            TODO
+        """
+        next_word = str()
+        for char in sentence:
+            if char not in self.non_word_boundaries:
+                break
+            next_word += char
+        return next_word
+
+    def levensthein(self, word, max_cost=2, start_node=None):
+        """
+        Retrieve the nodes where there is a fuzzy match,
+        via levenshtein distance, and with respect to max_cost
+
+        Args:
+            word (str): word to find a fuzzy match for
+            max_cost (int): maximum levenshtein distance when performing the fuzzy match
+            start_node (dict): Trie node from which the search is performed
+
+        Yields:
+            node, cost, depth (tuple): A tuple containing the final node,
+                                      the cost (i.e the distance), and the depth in the trie
+
+        Examples:
+            TODO
+        """
+        start_node = start_node or self.keyword_trie_dict
+        rows = range(len(word) + 1)
+
+        for char, node in start_node.items():
+            yield from self._levenshtein_rec(char, node, word, rows, max_cost, depth=1)
+
+
+    def _levenshtein_rec(self, char, node, word, rows, max_cost, depth=0):
+        n_columns = len(word) + 1
+        new_rows = [rows[0] + 1]
+
+        for col in range(1, n_columns):
+            insert_cost = new_rows[col - 1] + 1
+            delete_cost = rows[col] + 1
+            replace_cost = rows[col - 1] + int(word[col - 1] != char)
+            cost = min((insert_cost, delete_cost, replace_cost))
+            new_rows.append(cost)
+
+        stop_crit = node.keys() & (self._white_space_chars | {self._keyword})
+        if new_rows[-1] <= max_cost and stop_crit:
+            yield node, cost, depth
+
+        elif min(new_rows) <= max_cost and (self._keyword not in node.keys()):
+            for new_char, new_node in node.items():
+                yield from self._levenshtein_rec(new_char, new_node, word, new_rows, max_cost, depth=depth + 1)
