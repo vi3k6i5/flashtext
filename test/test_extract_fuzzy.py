@@ -6,7 +6,7 @@ import re
 
 logger = logging.getLogger(__name__)
 
-class TestKeywordReplacer(unittest.TestCase):
+class TestExtractFuzzy(unittest.TestCase):
     def setUp(self):
         logger.info("Starting...")
 

@@ -516,7 +516,7 @@ class KeywordProcessor(object):
                                 current_dict_continued = current_dict_continued[inner_char]
                             elif curr_cost > 0:
                                 next_word = self.get_next_word(sentence[idy:])
-                                closest_node, cost, depth = next(
+                                closest_node, cost, _ = next(
                                     self.levensthein(next_word, max_cost=curr_cost, start_node=current_dict_continued),
                                     ({}, 0, 0),
                                 )
@@ -550,9 +550,9 @@ class KeywordProcessor(object):
             elif char in current_dict:
                 # we can continue from this char
                 current_dict = current_dict[char]
-            elif current_dict is not self.keyword_trie_dict and curr_cost:
+            elif curr_cost > 0:
                 next_word = self.get_next_word(sentence[idx:])
-                closest_node, cost, depth = next(
+                closest_node, cost, _ = next(
                     self.levensthein(next_word, max_cost=curr_cost, start_node=current_dict),
                     ({}, 0, 0)
                 )
