@@ -145,6 +145,21 @@ class TestExtractFuzzy(unittest.TestCase):
         self.assertEqual(keyword_proc.extract_keywords(sentence, span_info=True, max_cost=2), [longest_keyword])
         self.assertEqual(keyword_proc.extract_keywords(sentence, span_info=True, max_cost=1), [shortest_keyword])
 
+    def test_intermediate_match_then_no_match(self):
+        """
+        In this test, we have an intermediate fuzzy match with a keyword (the shortest one)
+        We check that we get only the shortest keyword when going further into fuzzy match is too
+        expansive to get the longest keyword. We also extract a classic match later in the string,
+        to check that the inner data structures all have a correct state
+        """
+        keyword_proc = KeywordProcessor()
+        keyword_proc.add_keyword('keyword')
+        keyword_proc.add_keyword('keyword with many words')
+        sentence = "This sentence contains a keywrd with many items inside, a keyword at the end"
+
+        keywords = [('keyword', 25, 31), ('keyword', 58, 65)]
+        self.assertEqual(keyword_proc.extract_keywords(sentence, span_info=True, max_cost=2), keywords)
+
 
 if __name__ == '__main__':
     unittest.main()
