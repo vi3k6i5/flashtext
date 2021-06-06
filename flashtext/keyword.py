@@ -522,6 +522,8 @@ class KeywordProcessor(object):
                                 ) # current_dict_continued to empty dict by default, so next iteration goes to a `break`
                                 curr_cost -= cost
                                 idy += len(next_word) - 1
+                                if not current_dict_continued:
+                                    break
                             else:
                                 break
                             idy += 1
