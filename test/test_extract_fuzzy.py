@@ -41,7 +41,7 @@ class TestExtractFuzzy(unittest.TestCase):
     def test_correct_keyword_on_addition(self):
         """
         Test for simple additions using the levensthein function
-        We ensure we end up on the right node in the when starting from the current node
+        We ensure we end up on the right node in the trie when starting from the current node
         """
         keyword_proc = KeywordProcessor()
         for keyword in (('colour here', 'couleur ici'), ('and heere', 'et ici')):
@@ -69,7 +69,7 @@ class TestExtractFuzzy(unittest.TestCase):
     def test_correct_keyword_on_deletion(self):
         """
         Test for simple deletions using the levensthein function
-        We ensure we end up on the right node in the when starting from the current node
+        We ensure we end up on the right node in the trie when starting from the current node
         """
         keyword_proc = KeywordProcessor()
         keyword_proc.add_keyword('skype')
@@ -87,7 +87,7 @@ class TestExtractFuzzy(unittest.TestCase):
     def test_correct_keyword_on_substitution(self):
         """
         Test for simple substitions using the levensthein function
-        We ensure we end up on the right node in the when starting from the current node
+        We ensure we end up on the right node in the trie when starting from the current node
         """
         keyword_proc = KeywordProcessor()
         for keyword in (('skype', 'messenger'),):

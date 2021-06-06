@@ -715,7 +715,10 @@ class KeywordProcessor(object):
         Returns:
             next_word (str): The next word in the sentence
         Examples:
-            TODO
+            >>> from flashtext import KeywordProcessor
+            >>> keyword_processor = KeywordProcessor()
+            >>> keyword_processor.add_keyword('Big Apple')
+            >>> 'Big'
         """
         next_word = str()
         for char in sentence:
@@ -739,7 +742,16 @@ class KeywordProcessor(object):
                                       the cost (i.e the distance), and the depth in the trie
 
         Examples:
-            TODO
+            >>> from flashtext import KeywordProcessor
+            >>> keyword_processor = KeywordProcessor(case_sensitive=True)
+            >>> keyword_processor.add_keyword('Marie', 'Mary')
+            >>> next(keyword_processor.levensthein('Maria', max_cost=1))
+            >>> ({'_keyword_': 'Mary'}, 1, 5)
+            ...
+            >>> keyword_processor = KeywordProcessor(case_sensitive=True
+            >>> keyword_processor.add_keyword('Marie Blanc', 'Mary')
+            >>> next(keyword_processor.levensthein('Mari', max_cost=1))
+            >>> ({' ': {'B': {'l': {'a': {'n': {'c': {'_keyword_': 'Mary'}}}}}}}, 1, 5)
         """
         start_node = start_node or self.keyword_trie_dict
         rows = range(len(word) + 1)
