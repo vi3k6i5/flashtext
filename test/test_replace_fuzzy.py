@@ -71,9 +71,8 @@ class TestReplaceFuzzy(unittest.TestCase):
         keyword_proc = KeywordProcessor()
         keyword_proc.add_keyword('keyword')
         keyword_proc.add_keyword('keyword with many words')
-        sentence = "This sentence contains a keywrd with many items inside, a keyword at the end"
-        target_sentence = "this sentence contains a keyword with many items inside, a keyword at the end"
-        # FIXME : should work with uppercase in sentence
+        sentence = "This sentence contains a keywrd with many items inside, A keyword at the end"
+        target_sentence = "This sentence contains a keyword with many items inside, A keyword at the end"
 
         self.assertEqual(keyword_proc.replace_keywords(sentence, max_cost=1), target_sentence)
 
