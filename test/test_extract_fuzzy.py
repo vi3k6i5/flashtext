@@ -104,7 +104,7 @@ class TestExtractFuzzy(unittest.TestCase):
 
     def test_extract_cost_spread_over_multiple_words(self):
         """
-        Here we try to extract a keyword make of different words
+        Here we try to extract a keyword made of different words
         the current cost should be decreased by one when encountering 'maade' (1 insertion)
         and again by one when encountering 'multple' (1 deletion)
         """
