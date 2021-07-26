@@ -1,6 +1,7 @@
 import os
 import string
 import io
+import ast
 
 
 class KeywordProcessor(object):
@@ -349,6 +350,65 @@ class KeywordProcessor(object):
 
             for keyword in keywords:
                 self.add_keyword(keyword, clean_name)
+
+    def add_keywords_from_file_dict(self, keyword_file , sep = '=' , uncoding ='utf-8'):
+        """To add keywords from a file in the form key value map
+
+        Args:
+            keyword_file : path to keywords file
+            sep : unique separator for each line of the the keyword_file
+            encoding : specify the encoding of the file
+
+        Examples:
+            keywords file format can be like: 
+            Each line contains a new key value pair and has a single separator . 
+            Separator should be unique in lines. 
+            Value is in form of a list.
+            Quotation marks only required for values in the value list.
+
+            >>> # Option 1: config.txt content 
+            >>> # key inv single = ['invoice'] 
+            >>> # key_inv_number = ['invoice number', 'invoice no', 'invoice #', 'invoice#'] 
+            >>> # key inv_date = ['invoice date', 'invoice dt', 'issue date', 'date of invoice', 'date of issue', 'issue dt', 'dt of issue'] 
+
+
+            >>> keyword_processor.add_keywords_from_file_dict('config.txt' ,sep='=')
+
+        Raises:
+            IOError: If `keyword_file` path is not valid.
+            AttributeError: No separator provided in the line. Value of key should be a list.
+            AttributeError: Multiple separators present or choose a unique for the lines
+
+        """
+        if not os.path.isfile(keyword_file):
+            raise IOError("Invalid file path {}".format(keyword_file))
+        try:
+            keyword_dict = {}
+            with io.open(keyword_file, encoding=uncoding) as f:
+                
+                for line in f:
+                    broken_line = line.strip().split(sep = sep)
+                    
+                    if len(broken_line)!=2:
+                        if len(broken_line) == 1 and len(broken_line[0])>0:
+                            #No separator provided in the line
+                            #only key present in the line . no value list.
+                            raise AttributeError("No separator provided in the line. Value of key should be a list.") #No separator provided in the line#only key present in the line . no value list.
+                        
+                        elif len(broken_line)>2:
+                            #multiple separator present or choose a unique for the lines
+                            raise AttributeError("Multiple separators present or choose a unique for the lines") 
+                        else:
+                            continue #empty line in the config file . skipping it
+
+                    key = broken_line[0].strip()
+                    value_list = lst = ast.literal_eval(broken_line[1].strip())
+                    keyword_dict[key]= value_list
+            #print(keyword_dict)
+            self.add_keywords_from_dict(keyword_dict) 
+        except Exception as e:
+            print(e)
+
 
     def remove_keywords_from_dict(self, keyword_dict):
         """To remove keywords from a dictionary
