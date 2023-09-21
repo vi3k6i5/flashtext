@@ -577,7 +577,7 @@ class KeywordProcessor(object):
             if reset_current_dict:
                 reset_current_dict = False
                 if longest_sequence_found:
-                    idx-=1
+                    idx -= 1
                 sequence_start_pos = idx
         if span_info:
             return keywords_extracted
