@@ -487,13 +487,13 @@ class KeywordProcessor(object):
         while idx < sentence_len:
             char = sentence[idx]
             # when we reach a character that might denote word end
+            longest_sequence_found = None
             if char not in self.non_word_boundaries:
 
                 # if end is present in current_dict
                 if self._keyword in current_dict or char in current_dict:
                     # update longest sequence found
                     sequence_found = None
-                    longest_sequence_found = None
                     is_longer_seq_found = False
                     if self._keyword in current_dict:
                         sequence_found = current_dict[self._keyword]
@@ -576,6 +576,8 @@ class KeywordProcessor(object):
             idx += 1
             if reset_current_dict:
                 reset_current_dict = False
+                if longest_sequence_found:
+                    idx-=1
                 sequence_start_pos = idx
         if span_info:
             return keywords_extracted

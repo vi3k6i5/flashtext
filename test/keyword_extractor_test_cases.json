@@ -476,5 +476,15 @@
         "explanation": "",
         "keywords": ["spring framework"],
         "keywords_case_sensitive": ["spring framework"]
+    },
+    {
+        "sentence": "苹果香蕉的英文单词是apple banana",
+        "keyword_dict": {
+            "苹果": ["苹果"],
+            "香蕉": ["香蕉"]
+        },
+        "explanation": "Chinese word test",
+        "keywords": ["苹果", "香蕉"],
+        "keywords_case_sensitive": ["苹果","香蕉"]
     }
 ]
