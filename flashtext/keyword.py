@@ -567,7 +567,7 @@ class KeywordProcessor(object):
                     if char not in self.non_word_boundaries:
                         break
                     idy += 1
-                idx = idy
+                idx = idy-1
             # if we are end of sentence and have a sequence discovered
             if idx + 1 >= sentence_len:
                 if self._keyword in current_dict:

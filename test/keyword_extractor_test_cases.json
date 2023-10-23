@@ -486,5 +486,14 @@
         "explanation": "Chinese word test",
         "keywords": ["苹果", "香蕉"],
         "keywords_case_sensitive": ["苹果","香蕉"]
+    },
+    {
+        "sentence": "拓新天成的TX103产品已经获得中国发明专利和国际专利授权。此外，该产品治疗恶性脑胶质瘤已于今年6月获得了FDA孤儿药资格认定。",
+        "keyword_dict": {
+            "孤儿药": ["孤儿药"]
+        },
+        "explanation": "Chinese word test",
+        "keywords": ["孤儿药"],
+        "keywords_case_sensitive": ["孤儿药"]
     }
 ]
