@@ -487,13 +487,12 @@ class KeywordProcessor(object):
         while idx < sentence_len:
             char = sentence[idx]
             # when we reach a character that might denote word end
+            longest_sequence_found = None
             if char not in self.non_word_boundaries:
-
                 # if end is present in current_dict
                 if self._keyword in current_dict or char in current_dict:
                     # update longest sequence found
                     sequence_found = None
-                    longest_sequence_found = None
                     is_longer_seq_found = False
                     if self._keyword in current_dict:
                         sequence_found = current_dict[self._keyword]
@@ -503,7 +502,6 @@ class KeywordProcessor(object):
                     # re look for longest_sequence from this position
                     if char in current_dict:
                         current_dict_continued = current_dict[char]
-
                         idy = idx + 1
                         while idy < sentence_len:
                             inner_char = sentence[idy]
@@ -525,6 +523,13 @@ class KeywordProcessor(object):
                                 if not current_dict_continued:
                                     break
                             else:
+                                # 匹配到了一个词，且这个词的最后一个字符是不在non_word_boundaries，但是这个词的下一个字符在current_dict_continued中
+                                # 例如,匹配 孤儿药DFA  中的孤儿药
+                                if self._keyword in current_dict_continued and current_dict_continued[self._keyword][-1] not in self.non_word_boundaries and inner_char in self.non_word_boundaries:
+                                    # update longest sequence found
+                                    longest_sequence_found = current_dict_continued[self._keyword]
+                                    sequence_end_pos = idy
+                                    is_longer_seq_found = True
                                 break
                             idy += 1
                         else:
@@ -567,7 +572,7 @@ class KeywordProcessor(object):
                     if char not in self.non_word_boundaries:
                         break
                     idy += 1
-                idx = idy
+                idx = idy-1
             # if we are end of sentence and have a sequence discovered
             if idx + 1 >= sentence_len:
                 if self._keyword in current_dict:
@@ -576,6 +581,8 @@ class KeywordProcessor(object):
             idx += 1
             if reset_current_dict:
                 reset_current_dict = False
+                if longest_sequence_found:
+                    idx -= 1
                 sequence_start_pos = idx
         if span_info:
             return keywords_extracted
