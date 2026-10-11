@@ -785,6 +785,11 @@ class KeywordProcessor(object):
         for char, node in start_node.items():
             yield from self._levenshtein_rec(char, node, word, rows, max_cost, depth=1)
 
+        # Preserve existing descendant-match priority before trying suffix insertions.
+        if (word and len(word) <= max_cost and
+                start_node.keys() & (self._white_space_chars | {self._keyword})):
+            yield start_node, len(word), 0
+
 
     def _levenshtein_rec(self, char, node, word, rows, max_cost, depth=0):
         n_columns = len(word) + 1
