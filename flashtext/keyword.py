@@ -576,6 +576,7 @@ class KeywordProcessor(object):
             idx += 1
             if reset_current_dict:
                 reset_current_dict = False
+                curr_cost = max_cost
                 sequence_start_pos = idx
         if span_info:
             return keywords_extracted
@@ -675,8 +676,8 @@ class KeywordProcessor(object):
                             idx = sequence_end_pos
                             current_word = current_word_continued
                     current_dict = self.keyword_trie_dict
+                    curr_cost = max_cost
                     if longest_sequence_found:
-                        curr_cost = max_cost
                         new_sentence.append(longest_sequence_found + current_white_space)
                         current_word = ''
                         current_white_space = ''
@@ -687,6 +688,7 @@ class KeywordProcessor(object):
                 else:
                     # we reset current_dict
                     current_dict = self.keyword_trie_dict
+                    curr_cost = max_cost
                     new_sentence.append(current_word)
                     current_word = ''
                     current_white_space = ''
@@ -708,6 +710,7 @@ class KeywordProcessor(object):
                 current_word += orig_sentence[idx]
                 # we reset current_dict
                 current_dict = self.keyword_trie_dict
+                curr_cost = max_cost
                 # skip to end of word
                 idy = idx + 1
                 while idy < sentence_len:
