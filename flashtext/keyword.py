@@ -411,14 +411,14 @@ class KeywordProcessor(object):
             self.remove_keyword(keyword)
 
     def get_all_keywords(self, term_so_far='', current_dict=None):
-        """Recursively builds a dictionary of keywords present in the dictionary
+        """Builds a dictionary of keywords present in the dictionary
         And the clean name mapped to those keywords.
 
         Args:
             term_so_far : string
                 term built so far by adding all previous characters
             current_dict : dict
-                current recursive position in dictionary
+                current position in dictionary
 
         Returns:
             terms_present : dict
@@ -438,13 +438,20 @@ class KeywordProcessor(object):
             term_so_far = ''
         if current_dict is None:
             current_dict = self.keyword_trie_dict
-        for key in current_dict:
-            if key == '_keyword_':
-                terms_present[term_so_far] = current_dict[key]
+        path = []
+        stack = [iter(current_dict.items())]
+        while stack:
+            for key, value in stack[-1]:
+                if key == '_keyword_':
+                    terms_present[term_so_far + ''.join(path)] = value
+                else:
+                    path.append(key)
+                    stack.append(iter(value.items()))
+                    break
             else:
-                sub_values = self.get_all_keywords(term_so_far + key, current_dict[key])
-                for key in sub_values:
-                    terms_present[key] = sub_values[key]
+                stack.pop()
+                if path:
+                    path.pop()
         return terms_present
 
     def extract_keywords(self, sentence, span_info=False, max_cost=0):
