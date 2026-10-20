@@ -800,7 +800,7 @@ class KeywordProcessor(object):
 
         stop_crit = isinstance(node, dict) and node.keys() & (self._white_space_chars | {self._keyword})
         if new_rows[-1] <= max_cost and stop_crit:
-            yield node, cost, depth
+            yield node, new_rows[-1], depth
 
         elif isinstance(node, dict) and min(new_rows) <= max_cost:
             for new_char, new_node in node.items():
