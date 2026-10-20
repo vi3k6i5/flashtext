@@ -798,7 +798,11 @@ class KeywordProcessor(object):
             cost = min((insert_cost, delete_cost, replace_cost))
             new_rows.append(cost)
 
-        stop_crit = isinstance(node, dict) and node.keys() & (self._white_space_chars | {self._keyword})
+        stop_crit = isinstance(node, dict) and (
+            self._keyword in node or any(
+                character not in self.non_word_boundaries for character in node
+            )
+        )
         if new_rows[-1] <= max_cost and stop_crit:
             yield node, cost, depth
 
