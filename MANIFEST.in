@@ -1,2 +1,2 @@
 include README.rst LICENSE
-recursive-include test *.py
+recursive-include test *.py *.json *.txt
