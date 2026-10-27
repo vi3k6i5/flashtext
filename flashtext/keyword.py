@@ -291,6 +291,9 @@ class KeywordProcessor(object):
     def add_keyword_from_file(self, keyword_file, encoding="utf-8"):
         """To add keywords from a file
 
+        The first ``=>`` on each mapped line separates the keyword from its
+        clean name; any later occurrences are part of the clean name.
+
         Args:
             keyword_file : path to keywords file
             encoding : specify the encoding of the file
@@ -320,7 +323,7 @@ class KeywordProcessor(object):
         with io.open(keyword_file, encoding=encoding) as f:
             for line in f:
                 if '=>' in line:
-                    keyword, clean_name = line.split('=>')
+                    keyword, clean_name = line.split('=>', 1)
                     self.add_keyword(keyword, clean_name.strip())
                 else:
                     keyword = line.strip()
