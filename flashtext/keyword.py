@@ -132,15 +132,17 @@ class KeywordProcessor(object):
             clean_name : string
                 clean term for that keyword that you would want to get back in return or replace
                 if not provided, keyword will be used as the clean name also.
+                An empty string is kept as the clean name and removes matches
+                during replacement, preserving surrounding whitespace.
 
         Examples:
             >>> keyword_processor['Big Apple'] = 'New York'
         """
         status = False
-        if not clean_name and keyword:
+        if clean_name is None and keyword:
             clean_name = keyword
 
-        if keyword and clean_name:
+        if keyword and clean_name is not None:
             if not self.case_sensitive:
                 keyword = keyword.lower()
             current_dict = self.keyword_trie_dict
@@ -233,6 +235,8 @@ class KeywordProcessor(object):
             clean_name : string
                 clean term for that keyword that you would want to get back in return or replace
                 if not provided, keyword will be used as the clean name also.
+                An empty string is kept as the clean name and removes matches
+                during replacement, preserving surrounding whitespace.
 
         Returns:
             status : bool
@@ -537,7 +541,7 @@ class KeywordProcessor(object):
                         if is_longer_seq_found:
                             idx = sequence_end_pos
                     current_dict = self.keyword_trie_dict
-                    if longest_sequence_found:
+                    if longest_sequence_found is not None:
                         keywords_extracted.append((longest_sequence_found, sequence_start_pos, idx))
                         curr_cost = max_cost
                     reset_current_dict = True
@@ -675,7 +679,7 @@ class KeywordProcessor(object):
                             idx = sequence_end_pos
                             current_word = current_word_continued
                     current_dict = self.keyword_trie_dict
-                    if longest_sequence_found:
+                    if longest_sequence_found is not None:
                         curr_cost = max_cost
                         new_sentence.append(longest_sequence_found + current_white_space)
                         current_word = ''
